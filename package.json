@@ -6,16 +6,22 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "commit": "commit"
   },
   "dependencies": {
+    "@commitlint/prompt-cli": "^17.2.0",
+    "global": "^4.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
+    "husky": "^8.0.2",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
   }
