@@ -11,6 +11,10 @@ module.exports = {
         "yellow": {
           "700": "#CD8605"
         }
+      },
+      container: {
+        center: true,
+        padding: '2rem'
       }
     },
   },

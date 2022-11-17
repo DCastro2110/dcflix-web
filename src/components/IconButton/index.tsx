@@ -8,8 +8,8 @@ interface IProps {
 export function IconButton({ children, handleClick }: IProps) {
   return (
     <button
+      className="flex justify-center items-center text-white"
       type="button"
-      className="flex justify-center items-center"
       onClick={handleClick}>
       {children}
     </button>
