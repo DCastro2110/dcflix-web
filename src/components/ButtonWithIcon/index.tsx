@@ -50,7 +50,7 @@ export function ButtonWithIcon({ template }: IProps) {
 
   return (
     <button
-      className={`${buttonProps[template].bgColor} text-white p-2 rounded-md flex justify-center items-center gap-2`}
+      className={`${buttonProps[template].bgColor} hover:opacity-50 transition-opacity text-white p-2 rounded-md flex justify-center items-center gap-2`}
       type="button">
       {buttonProps[template].icon}
       {buttonProps[template].title}

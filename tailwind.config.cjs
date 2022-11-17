@@ -1,22 +1,26 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,tsx,jsx}"],
+  content: ['./index.html', './src/**/*.{js,ts,tsx,jsx}'],
   theme: {
     extend: {
+      backgroundImage: {
+        'main-gradient-bottom':
+          'linear-gradient(to bottom, transparent 10%, #08082C 80%)',
+      },
       colors: {
-        "blue": {
-          "700": "#080831",
-          "800": "#08082C"
+        blue: {
+          700: '#080831',
+          800: '#08082C',
         },
-        "yellow": {
-          "700": "#CD8605"
-        }
+        yellow: {
+          700: '#CD8605',
+        },
       },
       container: {
         center: true,
-        padding: '2rem'
-      }
+        padding: '2rem',
+      },
     },
   },
   plugins: [],
-}
+};
