@@ -8,6 +8,10 @@
   "plugins": ["prettier"],
   "rules": {
     "import/prefer-default-export": 0,
+    "import/extensions": [
+      "error",
+      "never"
+    ],
     "prettier/prettier": "error",
     "react/react-in-jsx-scope": 0
   }

@@ -1,10 +1,11 @@
-import { Header } from '../../components/Header';
+import { Header } from '@/components';
+import { MainMedia } from './components/MainMedia';
 
 export function Home() {
   return (
     <>
       <Header />
-      <div>Oi</div>
+      <MainMedia />
     </>
   );
 }
