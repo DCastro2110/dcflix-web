@@ -1,11 +1,14 @@
 {
-  "extends": ["airbnb", "airbnb-typescript"],
+  "extends": ["airbnb", "airbnb-typescript", "plugin:prettier/recommended"],
   "parserOptions": {
     "tsconfigRootDir": "./",
     "project": "./tsconfig.json"
   },
+
+  "plugins": ["prettier"],
   "rules": {
-    "react/react-in-jsx-scope": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": 0
   }
 }
