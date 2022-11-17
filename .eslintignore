@@ -1,2 +1,6 @@
 # Config Files
 vite.config.ts
+
+# Tailwind 
+tailwind.config.cjs
+postcss.config.cjs
