@@ -8,7 +8,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed w-full h-20">
+    <header className="fixed z-50 w-full h-20">
       <div className="h-full container max-w-[1600px] flex justify-between items-center">
         <div className="w-10">
           <IconButton handleClick={handleClick}>
@@ -24,7 +24,7 @@ export function Header() {
           />
         </a>
 
-        <div className="w-10 flex gap-4">
+        <div className="w-10 flex justify-end gap-4">
           <IconButton handleClick={handleClick}>
             <User size={24} />
           </IconButton>

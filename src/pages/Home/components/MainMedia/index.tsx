@@ -3,7 +3,7 @@ import { ButtonWithIcon } from '@/components';
 export function MainMedia() {
   return (
     <main
-      className={`h-[80vh] bg-white/40 text-white bg-cover bg-center bg-[url('/images/main-bg.jpeg')]`}>
+      className={`relative h-[80vh] bg-white/40 text-white bg-cover bg-center bg-[url('/images/main-bg.jpeg')]`}>
       <div className="absolute inset-0 bg-main-gradient-bottom">
         <div className="h-full container max-w-[1600px] flex items-center">
           <div className="space-y-4 -mt-24 ">
