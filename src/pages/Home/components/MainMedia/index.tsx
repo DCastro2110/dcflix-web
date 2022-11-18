@@ -16,7 +16,7 @@ export function MainMedia() {
               sapiente, sint itaque. Reprehenderit?
             </p>
 
-            <div className="w-fit flex justify-center items-center gap-4">
+            <div className="w-fit flex justify-center items-center mt-4 gap-4">
               <ButtonWithIcon template="watch" />
               <ButtonWithIcon template="about" />
             </div>

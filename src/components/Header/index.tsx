@@ -11,7 +11,7 @@ export function Header({ layout = 'simple' }: IProps) {
   const [isHeaderTransparent, setIsHeaderTransparent] = useState<boolean>(true);
 
   useEffect(() => {
-    window.addEventListener('scroll', (e) => {
+    window.addEventListener('scroll', () => {
       if (window.scrollY >= 50) {
         setIsHeaderTransparent(false);
         return;

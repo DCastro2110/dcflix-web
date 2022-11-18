@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { CaretLeft, CaretRight } from 'phosphor-react';
 
 import { MediaItem } from '@/components';
@@ -70,7 +71,15 @@ export function MediasByGenreSection() {
 
   return (
     <div className="max-w-full p-2 space-y-2">
-      <h2 className="text-xl mx-2 text-white">Em alta</h2>
+      <h2 className="text-xl mx-2 text-white flex items-center">
+        Em alta{' '}
+        <Link
+          to="/"
+          className="text-sm ml-2 hover:text-yellow-500 transition-colors">
+          {' '}
+          {'>'} Ver mais
+        </Link>
+      </h2>
       <div className="relative h-fit">
         <div
           className={`absolute z-10 h-60 top-2 w-12 items-center justify-center bg-black/50 ${
