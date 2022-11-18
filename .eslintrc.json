@@ -9,7 +9,7 @@
   "rules": {
     "react/require-default-props": 0,
     "import/prefer-default-export": 0,
-    "import/extensions": ["error", "never"],
+    "import/extensions": ["error", "never", { "svg": "always" }],
     "prettier/prettier": "error",
     "react/react-in-jsx-scope": 0
   }

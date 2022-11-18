@@ -1,4 +1,4 @@
-import { Header } from '@/components';
+import { Footer, Header } from '@/components';
 import { MainMedia, MediasByGenreSection } from './components';
 
 export function Home() {
@@ -10,6 +10,7 @@ export function Home() {
         <MediasByGenreSection />
         <MediasByGenreSection />
       </section>
+      <Footer />
     </>
   );
 }
