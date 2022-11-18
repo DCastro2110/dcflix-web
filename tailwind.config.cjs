@@ -9,7 +9,7 @@ module.exports = {
       },
       colors: {
         blue: {
-          700: '#080831',
+          700: '#0A1641',
           800: '#08082C',
         },
         yellow: {

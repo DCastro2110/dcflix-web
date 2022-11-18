@@ -1,8 +1,8 @@
 import { ArrowLeft } from 'phosphor-react';
 import { useNavigate } from 'react-router-dom';
 
-import { Header, IconButton, ButtonWithIcon } from '@/components';
-import { SelectSeason } from './components';
+import { Header, IconButton, ButtonWithIcon, Footer } from '@/components';
+import { SelectSeason, EpisodeItem } from './components';
 
 export function About() {
   const navigate = useNavigate();
@@ -49,6 +49,16 @@ export function About() {
           </div>
         </div>
       </main>
+      {typeOfMedia === 'tv' && (
+        <section>
+          <div className="container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 ">
+            <EpisodeItem />
+            <EpisodeItem />
+            <EpisodeItem />
+          </div>
+        </section>
+      )}
+      <Footer />
     </>
   );
 }
