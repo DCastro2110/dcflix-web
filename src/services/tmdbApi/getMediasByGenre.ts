@@ -6,20 +6,22 @@ import { addMediaType } from '@/utils/addMediaType';
 
 import { ITrending } from '@/types/ITrending';
 import { ITvPopular } from '@/types/ITvPopular';
-import { IMediaByGenre } from '@/types/IMediaByGnere';
+import { IMediaByGenre } from '@/types/IMediaByGenre';
 
 export const getMediasByGenre = {
-  allMediasRequest(): Array<() => void> {
+  async allMediasRequest(): Promise<
+    IDefaultPattern<ITrending[] | ITvPopular[] | IMediaByGenre[]>[]
+  > {
     return [
-      this.trendingRequest,
-      this.tvPopularRequest,
-      this.actionRequest,
-      this.horrorRequest,
-      this.dramaRequest,
-      this.misteryRequest,
-      this.romanceRequest,
-      this.comedyRequest,
-      this.documentaryRequest,
+      await this.trendingRequest(),
+      await this.tvPopularRequest(),
+      await this.actionRequest(),
+      await this.horrorRequest(),
+      await this.dramaRequest(),
+      await this.misteryRequest(),
+      await this.romanceRequest(),
+      await this.comedyRequest(),
+      await this.documentaryRequest(),
     ];
   },
   async trendingRequest() {

@@ -8,6 +8,7 @@ export interface ITvPopular {
   original_language: string;
   original_name: string;
   overview: string;
+  media_type: 'tv';
   popularity: number;
   poster_path: string;
   vote_average: number;

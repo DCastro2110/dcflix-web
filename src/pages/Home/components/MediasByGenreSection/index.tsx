@@ -1,16 +1,26 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { CaretLeft, CaretRight } from 'phosphor-react';
 
 import { MediaItem } from '@/components';
+
+import { ITrending } from '@/types/ITrending';
+import { ITvPopular } from '@/types/ITvPopular';
+import { IMediaByGenre } from '@/types/IMediaByGenre';
 
 import {
   quantToScrollToLeft,
   quantToScrollToRight,
 } from '../../utils/scrollToBordersOfSection';
 
-export function MediasByGenreSection() {
+interface IProps {
+  data: ITrending[] | ITvPopular[] | IMediaByGenre[];
+  slug: string;
+  title: string;
+}
+
+export function MediasByGenreSection({ data, slug, title }: IProps) {
   const mediasContainer = useRef(null);
   const [showCaretButtons, setShowCaretButtons] = useState({
     left: false,
@@ -47,7 +57,7 @@ export function MediasByGenreSection() {
     }
   };
 
-  const handleScrollToLeft = () => {
+  const handleScrollToLeft = useCallback(() => {
     if (!mediasContainer?.current) return;
 
     const containerWithMedias = mediasContainer.current as HTMLDivElement;
@@ -56,9 +66,9 @@ export function MediasByGenreSection() {
       left: quantToScrollToLeft(containerWithMedias),
       behavior: 'smooth',
     });
-  };
+  }, []);
 
-  const handleScrollToRight = () => {
+  const handleScrollToRight = useCallback(() => {
     if (!mediasContainer?.current) return;
 
     const containerWithMedias = mediasContainer.current as HTMLDivElement;
@@ -67,22 +77,22 @@ export function MediasByGenreSection() {
       left: quantToScrollToRight(containerWithMedias),
       behavior: 'smooth',
     });
-  };
+  }, []);
 
   return (
     <div className="max-w-full p-2 space-y-2">
       <h2 className="text-xl mx-2 text-white flex items-center">
-        Em alta{' '}
+        {title}
         <Link
           to="/"
-          className="text-sm ml-2 hover:text-yellow-500 transition-colors">
+          className="relative top-[1.6px] h-full text-sm ml-2 hover:text-yellow-500 transition-colors">
           {' '}
           {'>'} Ver mais
         </Link>
       </h2>
       <div className="relative h-fit">
         <div
-          className={`absolute z-10 h-60 top-2 w-12 items-center justify-center bg-black/50 ${
+          className={`absolute z-10 h-80 top-2 w-12 items-center justify-center bg-black/50 ${
             showCaretButtons.left ? 'flex' : 'hidden'
           }`}
           role="button"
@@ -97,27 +107,16 @@ export function MediasByGenreSection() {
           className="flex gap-2 overflow-x-scroll scrollbar-hide"
           onScroll={handleContainerScroll}
           ref={mediasContainer}>
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
-          <MediaItem />
+          {data.map((media) => (
+            <MediaItem
+              media_id={media.id}
+              media_type={media.media_type}
+              poster_path={media.poster_path}
+            />
+          ))}
         </div>
         <div
-          className={`absolute z-10 h-60 top-2 right-0 w-12 items-center justify-center bg-black/50 ${
+          className={`absolute z-10 h-80 top-2 right-0 w-12 items-center justify-center bg-black/50 ${
             showCaretButtons.right ? 'flex' : 'hidden'
           }`}
           role="button"
