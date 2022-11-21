@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { Home, About } from '../pages';
+import { Home, About, Search } from '../pages';
 
 export const AppRoute = createBrowserRouter([
   {
@@ -10,5 +10,9 @@ export const AppRoute = createBrowserRouter([
   {
     path: '/about',
     element: <About />,
+  },
+  {
+    path: '/search',
+    element: <Search />,
   },
 ]);
