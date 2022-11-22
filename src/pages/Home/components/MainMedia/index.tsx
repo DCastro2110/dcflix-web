@@ -47,7 +47,7 @@ export function MainMedia({ data }: IProps) {
                 template="about"
                 onClick={() =>
                   navigate(
-                    `about/${cryptMediaParam(
+                    `/about/${cryptMediaParam(
                       mainMedia.id,
                       mainMedia.media_type
                     )}`

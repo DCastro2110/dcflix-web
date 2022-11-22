@@ -9,7 +9,7 @@ import { getMediasByGenre } from '@/services/tmdbApi/getMediasByGenre';
 import { filterTrendingMedias } from './utils/filterTrendingMedias';
 
 export function Home() {
-  const allMedias = useQuery({
+  const allMediasRequest = useQuery({
     queryKey: ['allMedias'],
     queryFn: () => getMediasByGenre.allMediasRequest(),
     onError: () => {
@@ -17,11 +17,11 @@ export function Home() {
     },
   });
 
-  if (allMedias.isLoading) {
+  if (allMediasRequest.isLoading) {
     return <Loading />;
   }
 
-  if (allMedias.isError || allMedias.data === undefined) {
+  if (allMediasRequest.isError || allMediasRequest.data === undefined) {
     return <div>Não foi possível recarregar</div>;
   }
 
@@ -29,10 +29,10 @@ export function Home() {
     <>
       <Toast />
       <Header />
-      <MainMedia data={filterTrendingMedias(allMedias.data)} />
+      <MainMedia data={filterTrendingMedias(allMediasRequest.data)} />
       <section className="container max-w-[1600px] space-y-2 py-2">
-        {allMedias.data &&
-          allMedias.data.map((item) => (
+        {allMediasRequest.data &&
+          allMediasRequest.data.map((item) => (
             <MediasByGenreSection
               key={item.slug}
               title={item.title}

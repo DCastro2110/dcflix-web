@@ -21,7 +21,7 @@ export function MediaItem({
 }: IProps) {
   return (
     <Link
-      to={cryptMediaParam(media_id, media_type)}
+      to={`/about/${cryptMediaParam(media_id, media_type)}`}
       className="h-80 m-2 basis-52 shrink-0 bg-blue-700 rounded-md hover:scale-105 transition-transform">
       <LazyLoadImage
         className="object-cover h-full w-full"
