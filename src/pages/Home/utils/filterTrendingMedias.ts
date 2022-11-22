@@ -10,5 +10,5 @@ export function filterTrendingMedias(data: Array<IDefaultPattern<TItems>>) {
     (mediasByGenre) => mediasByGenre.slug === 'trending'
   );
 
-  return trendingMedias.items;
+  return trendingMedias.items as ITrending[];
 }

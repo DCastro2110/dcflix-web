@@ -8,7 +8,7 @@ export const AppRoute = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: '/about',
+    path: '/about/:id',
     element: <About />,
   },
   {
