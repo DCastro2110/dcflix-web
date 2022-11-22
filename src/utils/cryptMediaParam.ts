@@ -1,4 +1,4 @@
-export function criptMediaParam(id: number, type: 'tv' | 'movie') {
+export function cryptMediaParam(id: number, type: 'tv' | 'movie') {
   let param = String(id);
 
   if (type === 'tv') {

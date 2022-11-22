@@ -2,9 +2,10 @@ import { Play, PlusCircle, MinusCircle, Info } from 'phosphor-react';
 
 interface IProps {
   template: 'watch' | 'about' | 'addToMyList' | 'removeFromMyList';
+  onClick: () => void;
 }
 
-export function ButtonWithIcon({ template }: IProps) {
+export function ButtonWithIcon({ template, onClick }: IProps) {
   const buttonProps = {
     watch: {
       title: 'Assistir',
@@ -51,7 +52,8 @@ export function ButtonWithIcon({ template }: IProps) {
   return (
     <button
       className={`${buttonProps[template].bgColor} hover:opacity-50 transition-opacity text-white p-2 rounded-md flex justify-center items-center gap-2`}
-      type="button">
+      type="button"
+      onClick={onClick}>
       {buttonProps[template].icon}
       {buttonProps[template].title}
     </button>

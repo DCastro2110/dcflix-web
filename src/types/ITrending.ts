@@ -7,7 +7,7 @@ export interface ITrending {
   original_title: string;
   overview: string;
   poster_path: string;
-  media_type: string;
+  media_type: 'tv' | 'movie';
   genre_ids: number[];
   popularity: number;
   release_date: string;

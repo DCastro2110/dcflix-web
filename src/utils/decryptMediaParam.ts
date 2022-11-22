@@ -1,4 +1,4 @@
-export function decriptMediaParam(param: string) {
+export function decryptMediaParam(param: string) {
   const [id, typeEncrypted] = param.split('_');
 
   let typeDecrypted;
