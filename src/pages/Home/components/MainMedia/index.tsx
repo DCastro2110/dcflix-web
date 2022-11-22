@@ -1,3 +1,7 @@
+import { useMemo } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { ButtonWithIcon } from '@/components';
 
 import { ITrending } from '@/types/ITrending';
@@ -12,14 +16,16 @@ interface IProps {
 }
 
 export function MainMedia({ data }: IProps) {
-  const mainMedia = chooseAMainMedia(data);
+  const mainMedia = useMemo(() => chooseAMainMedia(data), []);
 
   return (
-    <main
-      className="relative h-[80vh] bg-white/40 text-white bg-cover bg-center"
-      style={{
-        backgroundImage: `url('${tmdbBetterImageLink}${mainMedia.backdrop_path}')`,
-      }}>
+    <main className="relative h-[80vh] bg-blue-800 text-white bg-cover bg-center">
+      <LazyLoadImage
+        className="max-h-full min-h-full w-full object-cover absolute inset-0"
+        src={tmdbBetterImageLink + mainMedia.backdrop_path}
+        alt=""
+        effect="opacity"
+      />
       <div className="absolute inset-0 bg-main-gradient-bottom">
         <div className="h-full container max-w-[1600px] flex items-center">
           <div className="space-y-4 md:-mt-24 ">
