@@ -12,6 +12,7 @@ import {
   Loading,
   Toast,
   LoadingSmall,
+  BlankScreen,
 } from '@/components';
 import { SelectSeason, EpisodeItem } from './components';
 
@@ -25,7 +26,6 @@ import { IMovieMedia } from '@/types/IMovieMedia';
 import { decryptMediaParam } from '@/utils/decryptMediaParam';
 
 import { tmdbBetterImageLink } from '@/constants/tmdbImageLink';
-import { BlankScreen } from '@/components/BlankScreen';
 
 function getMedia(
   type: 'tv' | 'movie',

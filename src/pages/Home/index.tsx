@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { Footer, Header, Loading, Toast } from '@/components';
+import { Footer, Header, Loading, BlankScreen } from '@/components';
 import { MainMedia, MediasByGenreSection } from './components';
 
 import { getMediasByGenre } from '@/services/tmdbApi/getMediasByGenre';
@@ -22,12 +22,11 @@ export function Home() {
   }
 
   if (allMediasRequest.isError || allMediasRequest.data === undefined) {
-    return <div>Não foi possível recarregar</div>;
+    return <BlankScreen />;
   }
 
   return (
     <>
-      <Toast />
       <Header />
       <MainMedia data={filterTrendingMedias(allMediasRequest.data)} />
       <section className="container max-w-[1600px] space-y-2 py-2">
