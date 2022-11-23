@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { List, User, MagnifyingGlass } from 'phosphor-react';
 
 import { IconButton } from '../IconButton';
@@ -9,6 +10,8 @@ interface IProps {
 
 export function Header({ layout = 'simple' }: IProps) {
   const [isHeaderTransparent, setIsHeaderTransparent] = useState<boolean>(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -53,9 +56,11 @@ export function Header({ layout = 'simple' }: IProps) {
             <IconButton handleClick={handleClick}>
               <User size={24} />
             </IconButton>
-            <IconButton handleClick={handleClick}>
-              <MagnifyingGlass size={24} />
-            </IconButton>
+            {layout !== 'search' && (
+              <IconButton handleClick={() => navigate('/search')}>
+                <MagnifyingGlass size={24} />
+              </IconButton>
+            )}
           </div>
         </div>
         {layout === 'search' && (
