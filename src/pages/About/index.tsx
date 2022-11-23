@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { ArrowLeft } from 'phosphor-react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useQuery } from 'react-query';
 
 import {
@@ -9,6 +10,8 @@ import {
   ButtonWithIcon,
   Footer,
   Loading,
+  Toast,
+  LoadingSmall,
 } from '@/components';
 import { SelectSeason, EpisodeItem } from './components';
 
@@ -22,6 +25,7 @@ import { IMovieMedia } from '@/types/IMovieMedia';
 import { decryptMediaParam } from '@/utils/decryptMediaParam';
 
 import { tmdbBetterImageLink } from '@/constants/tmdbImageLink';
+import { BlankScreen } from '@/components/BlankScreen';
 
 function getMedia(
   type: 'tv' | 'movie',
@@ -44,10 +48,18 @@ export function About() {
   const mediaRequest = useQuery<ITvMedia | IMovieMedia>({
     queryKey: [`media-${mediaType}`, mediaId],
     queryFn: () => getMedia(mediaType as 'tv' | 'movie', mediaId),
+    onError: () =>
+      toast.error(
+        'Não foi carregar as informações requisitadas. Tente novamente!'
+      ),
   });
   const seasonRequest = useQuery({
     queryKey: [`season`, `${mediaId}-${seasonSelected}`],
     queryFn: () => getASeason(mediaId, seasonSelected),
+    onError: () =>
+      toast.error(
+        'Não foi carregar as informações requisitadas. Tente novamente!'
+      ),
   });
 
   const seasons = useMemo(() => {
@@ -67,12 +79,17 @@ export function About() {
     return null;
   }, [mediaRequest.data]);
 
-  if (mediaRequest.isLoading || mediaRequest.data === undefined) {
+  if (mediaRequest.isLoading) {
     return <Loading />;
+  }
+
+  if (mediaRequest.data === undefined || mediaRequest.isError) {
+    return <BlankScreen />;
   }
 
   return (
     <>
+      <Toast />
       <Header />
       <main
         className="relative h-screen bg-cover text-white"
@@ -113,14 +130,20 @@ export function About() {
       </main>
       {mediaType === 'tv' && (
         <section>
-          <div className="container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {seasonRequest.data?.episodes.map((episode) => (
-              <EpisodeItem
-                stillPath={episode.still_path}
-                episodeName={episode.name}
-                episodeNumber={episode.episode_number}
-              />
-            ))}
+          <div className="relative container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {seasonRequest.isLoading ? (
+              <LoadingSmall />
+            ) : (
+              seasonRequest.data?.episodes.map((episode) => (
+                <EpisodeItem
+                  stillPath={
+                    episode.still_path || mediaRequest.data.backdrop_path
+                  }
+                  episodeName={episode.name}
+                  episodeNumber={episode.episode_number}
+                />
+              ))
+            )}
           </div>
         </section>
       )}
