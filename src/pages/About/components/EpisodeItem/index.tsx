@@ -1,14 +1,23 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-export function EpisodeItem() {
+import { tmdbImageLink } from '@/constants/tmdbImageLink';
+
+interface IProps {
+  stillPath: string;
+  episodeNumber: number;
+  episodeName: string;
+}
+
+export function EpisodeItem({ stillPath, episodeNumber, episodeName }: IProps) {
   return (
     <div className="bg-blue-700 text-white rounded-md overflow-hidden hover:scale-105 transition-transform cursor-pointer">
       <LazyLoadImage
-        src="/images/main-bg.jpeg"
+        className="w-full object-cover"
+        src={`${tmdbImageLink}${stillPath}`}
         alt=""
       />
-      <h2 className="p-2">1. Death by Misadventure</h2>
+      <h2 className="p-2">{`${episodeNumber}. ${episodeName}`}</h2>
     </div>
   );
 }

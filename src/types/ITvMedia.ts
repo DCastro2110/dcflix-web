@@ -63,6 +63,7 @@ export interface ITvMedia {
   languages: string[];
   last_air_date: string;
   last_episode_to_air: LastEpisodeToAir;
+  media_type: 'tv';
   name: string;
   next_episode_to_air: NextEpisodeToAir;
   networks: Network[];

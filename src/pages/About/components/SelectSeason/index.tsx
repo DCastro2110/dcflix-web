@@ -1,21 +1,42 @@
-import Select from 'react-select';
+import { Dispatch, SetStateAction, useMemo } from 'react';
+import Select, { SingleValue } from 'react-select';
 
+interface ISeasonOptions {
+  value: string;
+  label: string;
+}
 interface IProps {
-  seasonOptions: {
-    value: string;
-    label: string;
-  }[];
+  seasonSelector: {
+    seasonSelected: number;
+    setSeasonSelected: Dispatch<SetStateAction<number>>;
+  };
+  seasonOptions: ISeasonOptions[];
 }
 
-export function SelectSeason({ seasonOptions }: IProps) {
-  const [defaultSeason] = seasonOptions.filter(
-    (item) => item.value === 'season1'
-  );
+export function SelectSeason({
+  seasonOptions,
+  seasonSelector: { seasonSelected, setSeasonSelected },
+}: IProps) {
+  const seasonValue = useMemo(() => {
+    const [value] = seasonOptions.filter((item) =>
+      item.label.includes(String(seasonSelected))
+    );
+
+    return value;
+  }, [seasonSelected]);
+
+  const changeSeasonSelected = (newValue: SingleValue<ISeasonOptions>) => {
+    if (newValue === null) return;
+
+    const [, seasonNumber] = newValue.label.split(' ');
+    setSeasonSelected(Number(seasonNumber));
+  };
 
   return (
     <Select
       options={seasonOptions}
-      defaultValue={defaultSeason}
+      defaultValue={seasonValue}
+      value={seasonValue}
       styles={{
         control: () => ({
           backgroundColor: 'rgba(255, 255, 255, .3)',
@@ -51,6 +72,7 @@ export function SelectSeason({ seasonOptions }: IProps) {
           color: '#fff',
         }),
       }}
+      onChange={changeSeasonSelected}
     />
   );
 }
