@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Dispatch } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { List, User, MagnifyingGlass } from 'phosphor-react';
 
@@ -6,9 +6,13 @@ import { IconButton } from '../IconButton';
 
 interface IProps {
   layout?: 'simple' | 'categories' | 'search';
+  query?: {
+    query: string;
+    setQuery: Dispatch<string>;
+  };
 }
 
-export function Header({ layout = 'simple' }: IProps) {
+export function Header({ layout = 'simple', query }: IProps) {
   const [isHeaderTransparent, setIsHeaderTransparent] = useState<boolean>(true);
 
   const navigate = useNavigate();
@@ -22,6 +26,8 @@ export function Header({ layout = 'simple' }: IProps) {
       setIsHeaderTransparent(true);
     });
   }, []);
+
+  const isInputShow = layout === 'search' && query;
 
   const handleClick = () => {
     console.log('HEADER - ICON BUTTON => FUI CLICADO');
@@ -63,11 +69,13 @@ export function Header({ layout = 'simple' }: IProps) {
             )}
           </div>
         </div>
-        {layout === 'search' && (
+        {isInputShow && (
           <div className="flex justify-center items-center p-2">
             <input
               className="py-3 px-4 max-w-sm w-full bg-blue-700/50 border border-yellow-500 rounded-md text-white text-center outline-none"
               placeholder="O que você está procurando?"
+              value={query.query}
+              onChange={(e) => query.setQuery(e.target.value)}
             />
           </div>
         )}
