@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 
 import { Footer, Header, Toast } from '@/components';
-import { MainArea } from './components/MainArea';
+import { WantedMediaMainArea } from './components/WantedMediaMainArea';
 
 import { getWantedMedias } from '@/services/tmdbApi/getWantedMedias';
 
@@ -37,7 +37,7 @@ export function Search() {
         />
         <main className="pt-40 flex-1 flex justify-center items-center">
           <div className="relative container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            <MainArea
+            <WantedMediaMainArea
               query={query}
               wantedMediaData={wantedMediaRequest.data}
               isWantedMediaLoading={wantedMediaRequest.isLoading}

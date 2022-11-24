@@ -1,0 +1,1 @@
+export { WantedMediaMainArea } from './WantedMediaMainArea';

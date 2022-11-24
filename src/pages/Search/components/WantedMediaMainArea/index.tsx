@@ -9,7 +9,7 @@ interface IProps {
   wantedMediaData: IWantedMedia[] | undefined;
 }
 
-export function MainArea({
+export function WantedMediaMainArea({
   isWantedMediaLoading,
   isWantedMediaOnError,
   query,
