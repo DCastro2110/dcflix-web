@@ -7,13 +7,14 @@ import { IconButton } from '../IconButton';
 
 interface IProps {
   layout?: 'simple' | 'categories' | 'search';
+  pageTitle?: string;
   query?: {
     query: string;
     setQuery: Dispatch<string>;
   };
 }
 
-export function Header({ layout = 'simple', query }: IProps) {
+export function Header({ layout = 'simple', query, pageTitle }: IProps) {
   const [isHeaderTransparent, setIsHeaderTransparent] = useState<boolean>(true);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -30,6 +31,7 @@ export function Header({ layout = 'simple', query }: IProps) {
   }, []);
 
   const isInputShow = layout === 'search' && query;
+  const isPageTitleShow = layout === 'categories' && pageTitle;
 
   const handleClick = () => {
     console.log('HEADER - ICON BUTTON => FUI CLICADO');
@@ -51,9 +53,9 @@ export function Header({ layout = 'simple', query }: IProps) {
             ? 'bg-transparent'
             : 'bg-blue-800'
         }`}>
-        <div className="h-full container max-w-[1600px] flex-col justify-center">
-          <div className="flex justify-between items-center p-2">
-            <div className="w-24">
+        <div className="h-full py-2 container max-w-[1600px] flex-col justify-center">
+          <div className="flex justify-between items-center">
+            <div className="w-24 flex justify-start">
               <IconButton handleClick={() => setIsMenuOpen(true)}>
                 <List size={24} />
               </IconButton>
@@ -87,6 +89,9 @@ export function Header({ layout = 'simple', query }: IProps) {
                 onChange={(e) => query.setQuery(e.target.value)}
               />
             </div>
+          )}
+          {isPageTitleShow && (
+            <h2 className="text-white text-xl font-bold">{pageTitle}</h2>
           )}
         </div>
       </header>

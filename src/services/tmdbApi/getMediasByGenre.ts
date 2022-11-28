@@ -36,7 +36,7 @@ export const getMediasByGenre = {
     return trendingMedias;
   },
 
-  async tvPopularRequest(page: string = '1') {
+  async tvPopularRequest(page: number = 1) {
     const tvPopularMedias: IDefaultPattern<ITvPopular[]> = {
       slug: 'tv',
       title: 'Séries em Alta',
@@ -48,7 +48,7 @@ export const getMediasByGenre = {
     return tvPopularMedias;
   },
 
-  async actionRequest(page: string = '1') {
+  async actionRequest(page: number = 1) {
     const actionMedias: IDefaultPattern<IMediaByGenre[]> = {
       slug: 'action',
       title: 'Ação',
@@ -61,7 +61,7 @@ export const getMediasByGenre = {
     return actionMedias;
   },
 
-  async horrorRequest(page: string = '1') {
+  async horrorRequest(page: number = 1) {
     const horrorMedias: IDefaultPattern<IMediaByGenre[]> = {
       slug: 'horror',
       title: 'Terror',
@@ -74,7 +74,7 @@ export const getMediasByGenre = {
     return horrorMedias;
   },
 
-  async dramaRequest(page: string = '1') {
+  async dramaRequest(page: number = 1) {
     const dramaMedias: IDefaultPattern<IMediaByGenre[]> = {
       slug: 'drama',
       title: 'Drama',
@@ -87,7 +87,7 @@ export const getMediasByGenre = {
     return dramaMedias;
   },
 
-  async misteryRequest(page: string = '1') {
+  async misteryRequest(page: number = 1) {
     const misteryMedias: IDefaultPattern<IMediaByGenre[]> = {
       slug: 'mistery',
       title: 'Suspense',
@@ -101,7 +101,7 @@ export const getMediasByGenre = {
     return misteryMedias;
   },
 
-  async romanceRequest(page: string = '1') {
+  async romanceRequest(page: number = 1) {
     const romanceMedias: IDefaultPattern<IMediaByGenre[]> = {
       slug: 'romance',
       title: 'Romance',
@@ -115,7 +115,7 @@ export const getMediasByGenre = {
     return romanceMedias;
   },
 
-  async comedyRequest(page: string = '1') {
+  async comedyRequest(page: number = 1) {
     const comedyMedias: IDefaultPattern<IMediaByGenre[]> = {
       slug: 'comedy',
       title: 'Comédia',
@@ -128,7 +128,7 @@ export const getMediasByGenre = {
     return comedyMedias;
   },
 
-  async documentaryRequest(page: string = '1') {
+  async documentaryRequest(page: number = 1) {
     const documentaryMedias: IDefaultPattern<IMediaByGenre[]> = {
       slug: 'documentary',
       title: 'Documentário',

@@ -1,6 +1,12 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, useParams } from 'react-router-dom';
 
-import { Home, About, Search } from '../pages';
+import { Home, About, Search, Filter } from '../pages';
+
+function FilterWrapper() {
+  const { slug } = useParams();
+
+  return <Filter key={slug} />;
+}
 
 export const AppRoute = createBrowserRouter([
   {
@@ -14,5 +20,9 @@ export const AppRoute = createBrowserRouter([
   {
     path: '/search',
     element: <Search />,
+  },
+  {
+    path: '/filter/:slug',
+    element: <FilterWrapper />,
   },
 ]);
