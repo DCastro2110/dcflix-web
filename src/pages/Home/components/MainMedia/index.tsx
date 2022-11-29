@@ -23,9 +23,16 @@ export function MainMedia({ data }: IProps) {
 
   const navigation = useCallback(() => {
     if (mainMedia.media_type === 'tv') {
-      return navigate(`/play/${mainMedia.id}?season=1&episode=1`);
+      return navigate(
+        `/play/${cryptMediaParam(
+          mainMedia.id,
+          mainMedia.media_type
+        )}?season=1&episode=1`
+      );
     }
-    return navigate(`/play/${mainMedia.id}`);
+    return navigate(
+      `/play/${cryptMediaParam(mainMedia.id, mainMedia.media_type)}`
+    );
   }, []);
 
   return (
@@ -39,7 +46,7 @@ export function MainMedia({ data }: IProps) {
       <div className="absolute inset-0 bg-main-gradient-bottom">
         <div className="h-full container max-w-[1600px] flex items-center">
           <div className="space-y-4 md:-mt-24 ">
-            <h1 className="font-bold text-4xl md:text-6xl">
+            <h1 className="font-bold text-4xl md:text-6xl max-w-md">
               {mainMedia.title}
             </h1>
 

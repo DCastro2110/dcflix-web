@@ -60,6 +60,7 @@ export function About() {
       toast.error(
         'Não foi carregar as informações requisitadas. Tente novamente!'
       ),
+    enabled: mediaType === 'tv',
   });
 
   const seasons = useMemo(() => {
@@ -99,11 +100,11 @@ export function About() {
       <Toast />
       <Header />
       <main
-        className="relative h-screen bg-cover text-white"
+        className="relative min-h-screen bg-cover text-white"
         style={{
           backgroundImage: `url(${tmdbBetterImageLink}${mediaRequest.data.backdrop_path})`,
         }}>
-        <div className="absolute inset-0 bg-main-gradient-bottom">
+        <div className="inset-0 h-full min-h-screen bg-main-gradient-bottom">
           <div className="container max-w-[1600px] pt-24">
             <div className="flex flex-col gap-4">
               <IconButton handleClick={() => navigate('/browse')}>
@@ -113,7 +114,7 @@ export function About() {
                 />
               </IconButton>
 
-              <h1 className="font-bold text-4xl md:text-6xl">
+              <h1 className="font-bold text-4xl md:text-6xl max-w-md">
                 {mediaRequest.data?.original_name ||
                   mediaRequest.data?.original_title}
               </h1>
