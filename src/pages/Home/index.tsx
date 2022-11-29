@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 
-import { Footer, Header, Loading, BlankScreen } from '@/components';
+import { Footer, Header, Loading, BlankScreen, Toast } from '@/components';
 import { MainMedia, MediasByGenreSection } from './components';
 
 import { getMediasByGenre } from '@/services/tmdbApi/getMediasByGenre';
@@ -27,6 +27,7 @@ export function Home() {
 
   return (
     <>
+      <Toast />
       <Header />
       <MainMedia data={filterTrendingMedias(allMediasRequest.data)} />
       <section className="container max-w-[1600px] space-y-2 py-2">

@@ -1,6 +1,6 @@
 import { createBrowserRouter, useParams } from 'react-router-dom';
 
-import { Home, About, Search, Filter } from '../pages';
+import { Home, About, Search, Filter, Play } from '../pages';
 
 function FilterWrapper() {
   const { slug } = useParams();
@@ -16,6 +16,10 @@ export const AppRoute = createBrowserRouter([
   {
     path: '/about/:id',
     element: <About />,
+  },
+  {
+    path: '/play/:id',
+    element: <Play />,
   },
   {
     path: '/search',
