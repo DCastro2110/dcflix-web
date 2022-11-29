@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ArrowLeft } from 'phosphor-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -79,6 +79,13 @@ export function About() {
     return null;
   }, [mediaRequest.data]);
 
+  const navigation = useCallback(() => {
+    if (mediaType === 'tv') {
+      return navigate(`/play/${id}?season=1&episode=1`);
+    }
+    return navigate(`/play/${id}`);
+  }, []);
+
   if (mediaRequest.isLoading) {
     return <Loading />;
   }
@@ -114,7 +121,10 @@ export function About() {
 
               <div className="w-fit mt-4 space-y-4">
                 <div className="flex items-center gap-4">
-                  <ButtonWithIcon template="watch" />
+                  <ButtonWithIcon
+                    template="watch"
+                    onClick={navigation}
+                  />
                   <ButtonWithIcon template="addToMyList" />
                 </div>
                 {mediaType === 'tv' && seasons && (
@@ -136,6 +146,7 @@ export function About() {
             ) : (
               seasonRequest.data?.episodes.map((episode) => (
                 <EpisodeItem
+                  url={`/play/${id}?season=${episode.season_number}&episode=${episode.episode_number}`}
                   stillPath={
                     episode.still_path || mediaRequest.data.backdrop_path
                   }

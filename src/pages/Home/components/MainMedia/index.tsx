@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -21,6 +21,13 @@ export function MainMedia({ data }: IProps) {
   const mainMedia = useMemo(() => chooseAMainMedia(data), []);
   const navigate = useNavigate();
 
+  const navigation = useCallback(() => {
+    if (mainMedia.media_type === 'tv') {
+      return navigate(`/play/${mainMedia.id}?season=1&episode=1`);
+    }
+    return navigate(`/play/${mainMedia.id}`);
+  }, []);
+
   return (
     <main className="relative h-[90vh] bg-blue-800 text-white bg-cover bg-center">
       <LazyLoadImage
@@ -41,7 +48,7 @@ export function MainMedia({ data }: IProps) {
             <div className="w-fit flex justify-center items-center mt-4 gap-4">
               <ButtonWithIcon
                 template="watch"
-                onClick={() => navigate('/browse')}
+                onClick={navigation}
               />
               <ButtonWithIcon
                 template="about"
