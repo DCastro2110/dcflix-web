@@ -29,7 +29,7 @@ const categories = [
   },
   {
     title: 'Documentário',
-    slug: 'Documentary',
+    slug: 'documentary',
   },
 ];
 

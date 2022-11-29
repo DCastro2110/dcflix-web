@@ -104,7 +104,7 @@ export function About() {
         style={{
           backgroundImage: `url(${tmdbBetterImageLink}${mediaRequest.data.backdrop_path})`,
         }}>
-        <div className="inset-0 h-full min-h-screen bg-main-gradient-bottom">
+        <div className="min-h-screen h-full bg-main-gradient-bottom">
           <div className="container max-w-[1600px] pt-24">
             <div className="flex flex-col gap-4">
               <IconButton handleClick={() => navigate('/browse')}>

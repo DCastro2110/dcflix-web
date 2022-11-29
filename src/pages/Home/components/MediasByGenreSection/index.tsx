@@ -84,7 +84,7 @@ export function MediasByGenreSection({ data, slug, title }: IProps) {
       <h2 className="text-xl mx-2 text-white flex items-center">
         {title}
         <Link
-          to={`filter/${slug}`}
+          to={`/filter/${slug}`}
           className="relative top-[1.6px] h-full text-sm ml-2 hover:text-yellow-500 transition-colors">
           {' '}
           {'>'} Ver mais
