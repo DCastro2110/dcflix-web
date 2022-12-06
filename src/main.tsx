@@ -5,14 +5,14 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 
 import './styles/global.css';
 
-import { AppRoute } from './routers/app.route';
+import { AppRoutes } from './routers/app.routes';
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={AppRoute} />
+      <RouterProvider router={AppRoutes} />
     </QueryClientProvider>
   </React.StrictMode>
 );
