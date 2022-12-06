@@ -10,9 +10,7 @@ import { AppRoutes } from './routers/app.routes';
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={AppRoutes} />
-    </QueryClientProvider>
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <RouterProvider router={AppRoutes} />
+  </QueryClientProvider>
 );
