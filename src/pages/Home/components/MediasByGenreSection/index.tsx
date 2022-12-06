@@ -104,7 +104,7 @@ export function MediasByGenreSection({ data, slug, title }: IProps) {
           />
         </div>
         <div
-          className="flex gap-2 overflow-x-scroll scrollbar-hide"
+          className="flex gap-2 overflow-x-scroll overflow-y-hidden scrollbar-hide"
           onScroll={handleContainerScroll}
           ref={mediasContainer}>
           {data.map((media) => (
