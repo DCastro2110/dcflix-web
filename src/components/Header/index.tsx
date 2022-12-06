@@ -1,6 +1,6 @@
 import { useEffect, useState, Dispatch } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { List, User, MagnifyingGlass } from 'phosphor-react';
+import { List, SignOut, MagnifyingGlass } from 'phosphor-react';
 
 import { Menu } from '../Menu';
 import { IconButton } from '../IconButton';
@@ -33,9 +33,7 @@ export function Header({ layout = 'simple', query, pageTitle }: IProps) {
   const isInputShow = layout === 'search' && query;
   const isPageTitleShow = layout === 'categories' && pageTitle;
 
-  const handleClick = () => {
-    console.log('HEADER - ICON BUTTON => FUI CLICADO');
-  };
+  const handleLogout = () => {};
 
   return (
     <>
@@ -56,7 +54,9 @@ export function Header({ layout = 'simple', query, pageTitle }: IProps) {
         <div className="h-full py-2 container max-w-[1600px] flex-col justify-center">
           <div className="flex justify-between items-center">
             <div className="w-24 flex justify-start">
-              <IconButton handleClick={() => setIsMenuOpen(true)}>
+              <IconButton
+                title="Abrir menu"
+                onClick={() => setIsMenuOpen(true)}>
                 <List size={24} />
               </IconButton>
             </div>
@@ -70,14 +70,18 @@ export function Header({ layout = 'simple', query, pageTitle }: IProps) {
             </a>
 
             <div className="w-24 flex justify-end gap-4">
-              <IconButton handleClick={handleClick}>
-                <User size={24} />
-              </IconButton>
               {layout !== 'search' && (
-                <IconButton handleClick={() => navigate('/search')}>
+                <IconButton
+                  title="Pesquisar mídia"
+                  onClick={() => navigate('/search')}>
                   <MagnifyingGlass size={24} />
                 </IconButton>
               )}
+              <IconButton
+                title="Logout"
+                onClick={handleLogout}>
+                <SignOut size={24} />
+              </IconButton>
             </div>
           </div>
           {isInputShow && (

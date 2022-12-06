@@ -57,7 +57,9 @@ export function Menu({ menuOpen: { isMenuOpen, setIsMenuOpen } }: IProps) {
       <div
         role="menu"
         className="bg-blue-800 h-full max-w-[20rem] px-4 py-4 space-y-16">
-        <IconButton handleClick={() => setIsMenuOpen(false)}>
+        <IconButton
+          title="Fechar menu"
+          onClick={() => setIsMenuOpen(false)}>
           <X
             className="hover:text-yellow-500"
             size={24}

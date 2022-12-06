@@ -1,16 +1,18 @@
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-interface IProps {
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  handleClick: () => void;
+  title: string;
+  onClick: () => void;
 }
 
-export function IconButton({ children, handleClick }: IProps) {
+export function IconButton({ children, onClick, title }: IProps) {
   return (
     <button
       className="w-fit flex justify-center items-center text-white"
       type="button"
-      onClick={handleClick}>
+      onClick={onClick}
+      title={title}>
       {children}
     </button>
   );
