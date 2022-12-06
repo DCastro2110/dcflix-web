@@ -8,7 +8,7 @@ import { getMediasByGenre } from '@/services/tmdbApi/getMediasByGenre';
 
 import { filterTrendingMedias } from './utils/filterTrendingMedias';
 
-export function Home() {
+export function Browse() {
   const allMediasRequest = useQuery({
     queryKey: ['allMedias'],
     queryFn: () => getMediasByGenre.allMediasRequest(),

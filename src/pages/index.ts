@@ -1,4 +1,4 @@
-export { Home } from './Home';
+export { Browse } from './Browse';
 export { About } from './About';
 export { Search } from './Search';
 export { Filter } from './Filter';
