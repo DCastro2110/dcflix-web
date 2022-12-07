@@ -10,6 +10,8 @@ module.exports = {
           'linear-gradient(to bottom, transparent 10%, #08082C 95%)',
         'home-gradient-left':
           'linear-gradient(to left, transparent 10%, #08082C 95%)',
+        'auth-gradient-left':
+          'linear-gradient(to right, transparent 10%, #08082C 90%)',
       },
       colors: {
         blue: {
