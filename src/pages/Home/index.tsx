@@ -18,12 +18,12 @@ export function Home() {
 
           <div className="w-full mt-5 py-8 border-t border-white-500 space-y-2">
             <Link
-              to="/browse"
+              to="/signin"
               className="bg-yellow-500 hover:opacity-50 transition-opacity text-white p-2 rounded-md flex justify-center items-center gap-2">
               Entrar
             </Link>
             <Link
-              to="/"
+              to="/signup"
               className="bg-white/50 hover:opacity-50 transition-opacity text-white p-2 rounded-md flex justify-center items-center gap-2">
               Cadastrar-se
             </Link>
