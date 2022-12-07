@@ -1,98 +1,58 @@
-/* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
-import { useEffect, useRef, useState } from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Link } from 'react-router-dom';
 
 export function Home() {
-  const container = useRef<HTMLDivElement>(null);
-  const [selectedSlide, setSelectedSlide] = useState(1);
-
-  useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        setSelectedSlide((prevState) => {
-          if (prevState <= 1) return 1;
-          return prevState - 1;
-        });
-      }
-
-      if (e.key === 'ArrowRight') {
-        setSelectedSlide((prevState) => {
-          if (prevState >= 3) return 3;
-          return prevState + 1;
-        });
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!container.current) return;
-    const slide = container.current as HTMLDivElement;
-
-    if (selectedSlide === 1) {
-      slide.style.transform = 'translateX(0)';
-    }
-
-    if (selectedSlide === 2) {
-      slide.style.transform = 'translateX(-10vw)';
-    }
-
-    if (selectedSlide === 3) {
-      slide.style.transform = 'translateX(-200vw)';
-    }
-  }, [selectedSlide]);
-
   return (
-    <main className="min-h-screen max-h-screen flex items-center justify-center">
-      <div
-        className="absolute -z-10 inset-0 flex h-full w-full overflow-x-hidden"
-        ref={container}>
-        <div ref={container}>
+    <main className="min-h-screen max-h-screen">
+      <div className="relative w-full flex items-center justify-center">
+        <div className="absolute px-4 z-20 w-fit flex flex-col items-center">
           <img
-            className="min-w-[100vw] h-full object-cover object-center"
-            src="/images/banner1.jpg"
-            alt=""
+            className="w-52"
+            src="/images/logo.svg"
+            alt="Logo da DCFlix"
           />
-          <img
-            className="min-w-[100vw] h-full object-cover object-center"
-            src="/images/banner2.jpg"
-            alt=""
-          />
-          <img
-            className="min-w-[100vw] h-full object-cover object-center"
-            src="/images/banner3.jpg"
-            alt=""
-          />
+          <p className="-mt-3 text-white text-2xl text-center font-bold">
+            Os momentos mais incríveis, você encontra aqui.
+          </p>
+
+          <div className="w-full mt-5 py-8 border-t border-white-500 space-y-2">
+            <Link
+              to="/browse"
+              className="bg-yellow-500 hover:opacity-50 transition-opacity text-white p-2 rounded-md flex justify-center items-center gap-2">
+              Entrar
+            </Link>
+            <Link
+              to="/"
+              className="bg-white/50 hover:opacity-50 transition-opacity text-white p-2 rounded-md flex justify-center items-center gap-2">
+              Cadastrar-se
+            </Link>
+          </div>
         </div>
-      </div>
-      <div className="relative container max-w-[1600px] min-h-screen space-y-2 py-2 flex flex-col">
-        <div className="w-fit absolute bottom-10 self-center flex gap-2">
-          <div
-            className={`w-4 h-4 rounded-full ${
-              selectedSlide === 1 ? 'bg-yellow-500' : 'bg-white/50'
-            }`}
-            role="button"
-            aria-label="Trocar slide"
-            onClick={() => setSelectedSlide(1)}
+        <div className="absolute z-10 inset-0 bg-home-gradient-bottom" />
+        <div className="absolute z-10 inset-0 bg-home-gradient-left" />
+        <Carousel
+          showThumbs={false}
+          showStatus={false}
+          showArrows={false}
+          showIndicators={false}
+          autoPlay>
+          <img
+            className="object-cover max-h-screen min-h-screen"
+            src="images/banner1.jpg"
+            alt=""
           />
-          <div
-            className={`w-4 h-4 rounded-full ${
-              selectedSlide === 2 ? 'bg-yellow-500' : 'bg-white/50'
-            }`}
-            role="button"
-            aria-label="Trocar slide"
-            onClick={() => setSelectedSlide(2)}
+          <img
+            className="object-cover  max-h-screen min-h-screen"
+            src="images/banner2.jpg"
+            alt=""
           />
-          <div
-            className={`w-4 h-4 rounded-full ${
-              selectedSlide === 3 ? 'bg-yellow-500' : 'bg-white/50'
-            }`}
-            role="button"
-            aria-label="Trocar slide"
-            onClick={() => setSelectedSlide(3)}
+          <img
+            className="object-cover max-h-screen min-h-screen"
+            src="images/banner3.jpg"
+            alt=""
           />
-        </div>
+        </Carousel>
       </div>
     </main>
   );

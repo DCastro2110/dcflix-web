@@ -6,6 +6,10 @@ module.exports = {
       backgroundImage: {
         'main-gradient-bottom':
           'linear-gradient(to bottom, transparent 10%, #08082C 80%)',
+        'home-gradient-bottom':
+          'linear-gradient(to bottom, transparent 10%, #08082C 95%)',
+        'home-gradient-left':
+          'linear-gradient(to left, transparent 10%, #08082C 95%)',
       },
       colors: {
         blue: {
