@@ -43,16 +43,16 @@ export function SignUp() {
   });
 
   return (
-    <div className="flex min-h-screen max-h-screen">
+    <div className="flex min-h-screen">
       <div className="flex-1 flex flex-col items-center justify-center gap-8 p-4">
         <img
-          className="w-48"
+          className="w-36 md:w-48"
           src="/images/logo.svg"
           alt="Logo da DCFlix"
         />
 
         <fieldset className="h-fit w-fit p-8 bg-blue-700 rounded-md">
-          <legend className="text-white text-3xl text-center font-bold w-full">
+          <legend className="text-white text-2xl md:text-3xl text-center font-bold w-full">
             Cadastrar
           </legend>
           <form
