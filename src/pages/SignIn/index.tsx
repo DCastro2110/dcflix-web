@@ -1,9 +1,30 @@
 import { useId } from 'react';
 import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email('Email inválido.')
+    .required('O campo "email" não pode ficar vazio.'),
+  password: yup.string().required('O campo "senha" não pode ficar vazio.'),
+});
 
 export function SignIn() {
   const emailInputId = useId();
   const passwordInputId = useId();
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit(values) {
+      console.log(values);
+    },
+  });
 
   return (
     <div className="flex min-h-screen max-h-screen">
@@ -19,8 +40,9 @@ export function SignIn() {
             Entrar
           </legend>
           <form
-            method="POST"
-            className="h-full w-full flex flex-col justify-center items-center gap-4">
+            className="h-full w-full flex flex-col justify-center items-center gap-4"
+            onSubmit={formik.handleSubmit}
+            method="POST">
             <div className="w-full max-w-md space-y-2">
               <label
                 className="text-white text-lg font-bold"
@@ -33,7 +55,13 @@ export function SignIn() {
                 placeholder="example@provider.com"
                 type="email"
                 name="email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
               />
+              <span className="block text-red-500 mt-2">
+                {formik.submitCount > 0 && formik.errors.email}
+              </span>
             </div>
             <div className="w-full max-w-md space-y-2">
               <label
@@ -47,7 +75,13 @@ export function SignIn() {
                 placeholder="yupo%788$%hdh"
                 type="password"
                 name="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
               />
+              <span className="block text-red-500 mt-2">
+                {formik.submitCount > 0 && formik.errors.password}
+              </span>
             </div>
             <div className="w-full">
               <button
