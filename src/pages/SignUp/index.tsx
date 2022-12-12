@@ -149,7 +149,7 @@ export function SignUp() {
           </form>
           <Link
             className="block text-gray-400 text-center w-full mt-2"
-            to="/signup">
+            to="/signin">
             Já tem uma conta?{' '}
             <span className="text-white hover:text-yellow-500">
               Entre agora mesmo.
