@@ -1,11 +1,46 @@
 import { useId } from 'react';
 import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+
+const validationSchema = yup.object({
+  name: yup.string().required('O campo "nome" não pode ficar vazio.'),
+  email: yup
+    .string()
+    .email('Email inválido.')
+    .required('O campo "email" não pode ficar vazio.'),
+  password: yup
+    .string()
+    .length(8, 'O campo "senha" deve ter no mínimo 8 caracteres.')
+    .required('O campo "senha" não pode ficar vazio.')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
+      'O campo "senha" deve ter ao menos uma letra maiúscula, uma minúscula e um número.'
+    ),
+  passwordConfirmation: yup
+    .string()
+    .required('O campo "confirmar senha" não pode ficar vazio.')
+    .oneOf([yup.ref('password'), null], 'As senhas não são iguais.'),
+});
 
 export function SignUp() {
   const nameInputId = useId();
   const emailInputId = useId();
   const passwordInputId = useId();
-  const repeatPasswordInputId = useId();
+  const passwordConfirmationInputId = useId();
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+    },
+    validationSchema,
+    onSubmit(values) {
+      console.log(values);
+    },
+  });
 
   return (
     <div className="flex min-h-screen max-h-screen">
@@ -21,8 +56,9 @@ export function SignUp() {
             Cadastrar
           </legend>
           <form
-            method="POST"
-            className="h-full w-full flex flex-col justify-center items-center gap-4">
+            className="h-full w-full flex flex-col justify-center items-center gap-4"
+            onSubmit={formik.handleSubmit}
+            method="POST">
             <div className="w-full max-w-md space-y-2">
               <label
                 className="text-white text-lg font-bold"
@@ -35,7 +71,13 @@ export function SignUp() {
                 placeholder="Yuri dos Santos"
                 type="text"
                 name="name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
               />
+              <span className="block text-red-500 mt-2">
+                {formik.submitCount > 0 && formik.errors.name}
+              </span>
             </div>
             <div className="w-full max-w-md space-y-2">
               <label
@@ -49,7 +91,13 @@ export function SignUp() {
                 placeholder="example@provider.com"
                 type="email"
                 name="email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
               />
+              <span className="block text-red-500 mt-2">
+                {formik.submitCount > 0 && formik.errors.email}
+              </span>
             </div>
             <div className="w-full max-w-md space-y-2">
               <label
@@ -63,21 +111,33 @@ export function SignUp() {
                 placeholder="yupo%788$%hdh"
                 type="password"
                 name="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
               />
+              <span className="block text-red-500 mt-2">
+                {formik.submitCount > 0 && formik.errors.password}
+              </span>
             </div>
             <div className="w-full max-w-md space-y-2">
               <label
                 className="text-white text-lg font-bold"
-                htmlFor={repeatPasswordInputId}>
+                htmlFor={passwordConfirmationInputId}>
                 Confirmar senha
               </label>
               <input
                 className="w-full max-w-md py-4 px-8 rounded-md outline-yellow-500"
-                id={repeatPasswordInputId}
+                id={passwordConfirmationInputId}
                 placeholder="yupo%788$%hdh"
                 type="password"
-                name="password"
+                name="passwordConfirmation"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.passwordConfirmation}
               />
+              <span className="block text-red-500 mt-2">
+                {formik.submitCount > 0 && formik.errors.passwordConfirmation}
+              </span>
             </div>
             <div className="w-full">
               <button
