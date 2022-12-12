@@ -36,6 +36,7 @@ export function Home() {
           showStatus={false}
           showArrows={false}
           showIndicators={false}
+          infiniteLoop
           autoPlay>
           <img
             className="object-cover max-h-screen min-h-screen"

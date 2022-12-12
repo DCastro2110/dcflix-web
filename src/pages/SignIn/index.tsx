@@ -7,9 +7,6 @@ export function SignIn() {
 
   return (
     <div className="flex min-h-screen max-h-screen">
-      <div className="relative flex-1 bg-[url('/images/banner1.jpg')] bg-cover">
-        <div className="absolute inset-0 bg-auth-gradient-left" />
-      </div>
       <div className="flex-1 flex flex-col items-center justify-center gap-8 p-4">
         <img
           className="w-48"
