@@ -8,7 +8,7 @@ export const tmdbApi = axios.create({
   timeoutErrorMessage:
     'Tempo de requisição esgotado. Tente novamente mais tarde!',
   params: {
-    api_key: import.meta.env.VITE_API_KEY,
+    api_key: import.meta.env.VITE_TMDB_API_KEY,
   },
 });
 
