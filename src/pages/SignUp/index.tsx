@@ -11,7 +11,7 @@ const validationSchema = yup.object({
     .required('O campo "email" não pode ficar vazio.'),
   password: yup
     .string()
-    .length(8, 'O campo "senha" deve ter no mínimo 8 caracteres.')
+    .min(8, 'O campo "senha" deve ter no mínimo 8 caracteres.')
     .required('O campo "senha" não pode ficar vazio.')
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
