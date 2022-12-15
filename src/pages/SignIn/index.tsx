@@ -1,7 +1,11 @@
-import { useId } from 'react';
+import { useId, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+
+import { AuthContext } from '@/contexts/AuthContext';
+
+import { login } from '@/services/dcflixApi/login';
 
 const validationSchema = yup.object({
   email: yup
@@ -12,6 +16,8 @@ const validationSchema = yup.object({
 });
 
 export function SignIn() {
+  const { user, setUser } = useContext(AuthContext);
+
   const emailInputId = useId();
   const passwordInputId = useId();
 
@@ -21,8 +27,16 @@ export function SignIn() {
       password: '',
     },
     validationSchema,
-    onSubmit(values) {
-      console.log(values);
+    async onSubmit(values) {
+      try {
+        const req = await login(values);
+        if (req.data.user.id) {
+          setUser(req.data.user);
+          console.log(req.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   });
 

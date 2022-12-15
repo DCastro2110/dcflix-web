@@ -13,7 +13,7 @@ export const tmdbApi = axios.create({
 });
 
 export const tmdbRequest = async (url: string) => {
-  const res = await tmdbApi(`${url}`);
+  const res = await tmdbApi.get(`${url}`);
   const data = mediaRemoverThatHasNoImages(res.data);
 
   return data;
