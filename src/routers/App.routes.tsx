@@ -1,6 +1,9 @@
 import { ReactElement, useContext } from 'react';
 import { Routes, Route, useParams, Navigate } from 'react-router-dom';
+
 import { AuthContextProvider, AuthContext } from '../contexts/AuthContext';
+
+import { useAuth } from '@/hooks/useAuth';
 
 import {
   Home,
@@ -12,6 +15,8 @@ import {
   SignIn,
   SignUp,
 } from '../pages';
+
+import { Loading } from '@/components';
 
 interface IPrivateRouteProps {
   children: ReactElement;
@@ -25,6 +30,11 @@ function FilterWrapper() {
 
 function PrivateRoute({ children }: IPrivateRouteProps) {
   const { user } = useContext(AuthContext);
+  const { isLoading } = useAuth();
+
+  if (isLoading && !user.id) {
+    return <Loading />;
+  }
 
   if (user.id) {
     return children;

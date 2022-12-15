@@ -1,12 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useMemo,
-  useState,
-  useEffect,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, Dispatch, ReactNode, useMemo, useState } from 'react';
 
 import { IUser } from '@/types/IUser';
 
@@ -17,7 +9,6 @@ interface IAuthContext {
 
 export const AuthContext = createContext({} as IAuthContext);
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-  const navigation = useNavigate();
   const [user, setUser] = useState<IUser>({
     id: '',
     email: '',
@@ -29,12 +20,6 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
       user,
       setUser,
     };
-  }, [user]);
-
-  useEffect(() => {
-    if (user.id) {
-      navigation('/browse');
-    }
   }, [user]);
 
   return (
