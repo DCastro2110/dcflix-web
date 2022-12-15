@@ -1,9 +1,13 @@
 import { useId, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import { AuthContext } from '@/contexts/AuthContext';
+
+import { useAuth } from '@/hooks/useAuth';
+
+import { Loading } from '@/components';
 
 import { login } from '@/services/dcflixApi/login';
 
@@ -21,6 +25,8 @@ export function SignIn() {
   const emailInputId = useId();
   const passwordInputId = useId();
 
+  const navigation = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -32,13 +38,23 @@ export function SignIn() {
         const req = await login(values);
         if (req.data.user.id) {
           setUser(req.data.user);
-          console.log(req.data);
+          navigation('/browse');
         }
       } catch (err) {
         console.log(err);
       }
     },
   });
+
+  const { isLoading } = useAuth();
+
+  if (user.id) {
+    return <Navigate to="/browse" />;
+  }
+
+  if (isLoading && !user.id) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex min-h-screen">
