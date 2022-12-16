@@ -14,6 +14,8 @@ export function useAuth() {
       setUser(data.data.user);
     },
     enabled: !user.id,
+    refetchOnWindowFocus: false,
+    retry: false,
   });
 
   return {

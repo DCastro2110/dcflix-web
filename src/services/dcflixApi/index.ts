@@ -5,4 +5,5 @@ export const dcflixApi = axios.create({
   timeout: 20000,
   timeoutErrorMessage:
     'Tempo de requisição esgotado. Tente novamente mais tarde!',
+  withCredentials: true,
 });

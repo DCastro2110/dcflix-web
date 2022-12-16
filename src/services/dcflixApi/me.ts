@@ -8,9 +8,7 @@ interface IData {
 }
 
 export async function me(): Promise<IDcflixApiJson<IData>> {
-  const res = await dcflixApi.get('/me', {
-    withCredentials: true,
-  });
+  const res = await dcflixApi.get('/me');
 
   return res.data as IDcflixApiJson<IData>;
 }

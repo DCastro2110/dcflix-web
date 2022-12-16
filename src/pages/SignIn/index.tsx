@@ -1,13 +1,16 @@
 import { useId, useContext } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 import { AuthContext } from '@/contexts/AuthContext';
 
 import { useAuth } from '@/hooks/useAuth';
 
-import { Loading } from '@/components';
+import { Loading, Toast } from '@/components';
 
 import { login } from '@/services/dcflixApi/login';
 
@@ -22,10 +25,33 @@ const validationSchema = yup.object({
 export function SignIn() {
   const { user, setUser } = useContext(AuthContext);
 
+  const navigation = useNavigate();
+
+  const loginMutation = useMutation({
+    mutationFn: (values: yup.InferType<typeof validationSchema>) =>
+      login(values),
+    onSuccess: (data) => {
+      setUser(data.data.user);
+      navigation('/browse');
+    },
+    onError: (err) => {
+      if (!(err instanceof AxiosError)) return;
+
+      if (err.response!.data.message === 'User not found.') {
+        toast.error('Usuário não encontrado.');
+        return;
+      }
+      if (err.response!.data.message === 'Password is wrong.') {
+        toast.error('Senha incorreta. Tente novamente!.');
+        return;
+      }
+
+      toast.error('Erro ao entrar. Tente novamente!.');
+    },
+  });
+
   const emailInputId = useId();
   const passwordInputId = useId();
-
-  const navigation = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -34,15 +60,7 @@ export function SignIn() {
     },
     validationSchema,
     async onSubmit(values) {
-      try {
-        const req = await login(values);
-        if (req.data.user.id) {
-          setUser(req.data.user);
-          navigation('/browse');
-        }
-      } catch (err) {
-        console.log(err);
-      }
+      loginMutation.mutate(values);
     },
   });
 
@@ -58,6 +76,7 @@ export function SignIn() {
 
   return (
     <div className="flex min-h-screen">
+      <Toast />
       <div className="flex-1 flex flex-col items-center justify-center gap-8 p-4">
         <img
           className="w-36 md:w-48"
@@ -115,9 +134,14 @@ export function SignIn() {
             </div>
             <div className="w-full">
               <button
-                className="bg-yellow-500 text-white hover:opacity-50 transition-opacity w-full max-w-md py-4 px-8 mt-2 rounded-md"
-                type="submit">
-                Entrar
+                className="bg-yellow-500 text-white hover:opacity-50 transition-opacity w-full max-w-md py-4 px-8 mt-2 rounded-md disabled:opacity-50"
+                type="submit"
+                disabled={loginMutation.isLoading}>
+                {loginMutation.isLoading ? (
+                  <div className="w-6 h-6 mx-auto rounded-full border border-t-0 border-r-0 border-white animate-spin" />
+                ) : (
+                  'Entrar'
+                )}
               </button>
 
               <Link
