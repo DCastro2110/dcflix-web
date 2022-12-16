@@ -109,6 +109,7 @@ export function MediasByGenreSection({ data, slug, title }: IProps) {
           ref={mediasContainer}>
           {data.map((media) => (
             <MediaItem
+              key={media.id}
               overview={media.overview}
               media_id={media.id}
               media_type={media.media_type}
