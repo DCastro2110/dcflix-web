@@ -1,7 +1,18 @@
-import { useId } from 'react';
-import { Link } from 'react-router-dom';
+import { useId, useContext } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useMutation } from 'react-query';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+
+import { AuthContext } from '@/contexts/AuthContext';
+
+import { useAuth } from '@/hooks/useAuth';
+
+import { Loading, Toast } from '@/components';
+
+import { register } from '@/services/dcflixApi/register';
 
 const validationSchema = yup.object({
   name: yup.string().required('O campo "nome" não pode ficar vazio.'),
@@ -24,10 +35,33 @@ const validationSchema = yup.object({
 });
 
 export function SignUp() {
+  const { user, setUser } = useContext(AuthContext);
+
   const nameInputId = useId();
   const emailInputId = useId();
   const passwordInputId = useId();
   const passwordConfirmationInputId = useId();
+
+  const navigation = useNavigate();
+
+  const registerMutation = useMutation({
+    mutationFn: (values: yup.InferType<typeof validationSchema>) =>
+      register(values),
+    onSuccess: (data) => {
+      setUser(data.data.user);
+      navigation('/browse');
+    },
+    onError: (err) => {
+      if (!(err instanceof AxiosError)) return;
+
+      if (err.response!.data.message === 'E-mail already registered.') {
+        toast.error('Email já registrado.');
+        return;
+      }
+
+      toast.error('Erro ao cadastrar. Tente novamente!.');
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -38,12 +72,23 @@ export function SignUp() {
     },
     validationSchema,
     onSubmit(values) {
-      console.log(values);
+      registerMutation.mutate(values);
     },
   });
 
+  const { isLoading } = useAuth();
+
+  if (user.id) {
+    return <Navigate to="/browse" />;
+  }
+
+  if (isLoading && !user.id) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex min-h-screen">
+      <Toast />
       <div className="flex-1 flex flex-col items-center justify-center gap-8 p-4">
         <img
           className="w-36 md:w-48"
