@@ -89,7 +89,9 @@ export function Play() {
       <main className="relative h-full flex items-center justify-center bg-black">
         <div className="absolute z-10 top-0 right-0 left-0 py-4 px-2 border-b border-white flex items-center justify-between text-white">
           <div className="w-24 h-full flex items-center">
-            <IconButton handleClick={() => navigate(-1)}>
+            <IconButton
+              title="Voltar"
+              onClick={() => navigate(`/about/${id}`)}>
               <ArrowLeft
                 className="text-white"
                 size={24}

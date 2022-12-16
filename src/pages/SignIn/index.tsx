@@ -25,14 +25,14 @@ const validationSchema = yup.object({
 export function SignIn() {
   const { user, setUser } = useContext(AuthContext);
 
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const loginMutation = useMutation({
     mutationFn: (values: yup.InferType<typeof validationSchema>) =>
       login(values),
     onSuccess: (data) => {
       setUser(data.data.user);
-      navigation('/browse');
+      navigate('/browse');
     },
     onError: (err) => {
       if (!(err instanceof AxiosError)) return;

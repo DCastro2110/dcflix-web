@@ -42,14 +42,14 @@ export function SignUp() {
   const passwordInputId = useId();
   const passwordConfirmationInputId = useId();
 
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const registerMutation = useMutation({
     mutationFn: (values: yup.InferType<typeof validationSchema>) =>
       register(values),
     onSuccess: (data) => {
       setUser(data.data.user);
-      navigation('/browse');
+      navigate('/browse');
     },
     onError: (err) => {
       if (!(err instanceof AxiosError)) return;

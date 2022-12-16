@@ -21,7 +21,7 @@ export function MainMedia({ data }: IProps) {
   const mainMedia = useMemo(() => chooseAMainMedia(data), []);
   const navigate = useNavigate();
 
-  const navigation = useCallback(() => {
+  const navigateToPlayRoute = useCallback(() => {
     if (mainMedia.media_type === 'tv') {
       return navigate(
         `/play/${cryptMediaParam(
@@ -55,7 +55,7 @@ export function MainMedia({ data }: IProps) {
             <div className="w-fit flex justify-center items-center mt-4 gap-4">
               <ButtonWithIcon
                 template="watch"
-                onClick={navigation}
+                onClick={navigateToPlayRoute}
               />
               <ButtonWithIcon
                 template="about"

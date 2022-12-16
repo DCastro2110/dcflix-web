@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { ArrowLeft } from 'phosphor-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQuery } from 'react-query';
 
@@ -80,7 +80,7 @@ export function About() {
     return null;
   }, [mediaRequest.data]);
 
-  const navigation = useCallback(() => {
+  const navigateToPlayRoute = useCallback(() => {
     if (mediaType === 'tv') {
       return navigate(`/play/${id}?season=1&episode=1`);
     }
@@ -107,7 +107,9 @@ export function About() {
         <div className="min-h-screen h-full bg-main-gradient-bottom">
           <div className="container max-w-[1600px] pt-24">
             <div className="flex flex-col gap-4">
-              <IconButton handleClick={() => navigate('/browse')}>
+              <IconButton
+                title="Voltar à página inicial"
+                onClick={() => navigate('/browse')}>
                 <ArrowLeft
                   color="white"
                   size={32}
@@ -124,7 +126,7 @@ export function About() {
                 <div className="flex items-center gap-4">
                   <ButtonWithIcon
                     template="watch"
-                    onClick={navigation}
+                    onClick={navigateToPlayRoute}
                   />
                   <ButtonWithIcon template="addToMyList" />
                 </div>
