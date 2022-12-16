@@ -186,9 +186,14 @@ export function SignUp() {
             </div>
             <div className="w-full">
               <button
-                className="bg-yellow-500 text-white hover:opacity-50 transition-opacity w-full max-w-md py-4 px-8 mt-2 rounded-md"
-                type="submit">
-                Entrar
+                className="bg-yellow-500 text-white hover:opacity-50 transition-opacity w-full max-w-md py-4 px-8 mt-2 rounded-md disabled:opacity-50"
+                type="submit"
+                disabled={registerMutation.isLoading}>
+                {registerMutation.isLoading ? (
+                  <div className="w-6 h-6 mx-auto rounded-full border border-t-0 border-r-0 border-white animate-spin" />
+                ) : (
+                  'Registrar'
+                )}
               </button>
             </div>
           </form>
