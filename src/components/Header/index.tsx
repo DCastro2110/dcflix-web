@@ -1,9 +1,15 @@
-import { useEffect, useState, Dispatch } from 'react';
+import { useEffect, useState, Dispatch, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
 import { List, SignOut, MagnifyingGlass } from 'phosphor-react';
+import { toast } from 'react-toastify';
+
+import { AuthContext } from '@/contexts/AuthContext';
 
 import { Menu } from '../Menu';
 import { IconButton } from '../IconButton';
+
+import { logout } from '@/services/dcflixApi/logout';
 
 interface IProps {
   layout?: 'simple' | 'categories' | 'search';
@@ -15,10 +21,27 @@ interface IProps {
 }
 
 export function Header({ layout = 'simple', query, pageTitle }: IProps) {
+  const { setUser } = useContext(AuthContext);
+
   const [isHeaderTransparent, setIsHeaderTransparent] = useState<boolean>(true);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
+
+  const logoutMutation = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      setUser({
+        id: '',
+        email: '',
+        name: '',
+      });
+      navigate('/');
+    },
+    onError: () => {
+      toast.error('Não foi possível se desconectar. Tente novamente!');
+    },
+  });
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -32,8 +55,6 @@ export function Header({ layout = 'simple', query, pageTitle }: IProps) {
 
   const isInputShow = layout === 'search' && query;
   const isPageTitleShow = layout === 'categories' && pageTitle;
-
-  const handleLogout = () => {};
 
   return (
     <>
@@ -79,7 +100,7 @@ export function Header({ layout = 'simple', query, pageTitle }: IProps) {
               )}
               <IconButton
                 title="Logout"
-                onClick={handleLogout}>
+                onClick={logoutMutation.mutate}>
                 <SignOut size={24} />
               </IconButton>
             </div>
