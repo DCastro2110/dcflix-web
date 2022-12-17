@@ -56,7 +56,7 @@ export function Menu({ menuOpen: { isMenuOpen, setIsMenuOpen } }: IProps) {
       role="presentation">
       <div
         role="menu"
-        className="bg-blue-800 h-full max-w-[20rem] px-4 py-4 space-y-16">
+        className="bg-blue-700 h-full max-w-[20rem] px-4 py-4 space-y-16">
         <IconButton
           title="Fechar menu"
           onClick={() => setIsMenuOpen(false)}>
