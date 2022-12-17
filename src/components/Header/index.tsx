@@ -1,15 +1,11 @@
-import { useEffect, useState, Dispatch, useContext } from 'react';
+import { useEffect, useState, Dispatch } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from 'react-query';
 import { List, SignOut, MagnifyingGlass } from 'phosphor-react';
-import { toast } from 'react-toastify';
-
-import { AuthContext } from '@/contexts/AuthContext';
+import * as AlertDialog from '@radix-ui/react-alert-dialog';
 
 import { Menu } from '../Menu';
 import { IconButton } from '../IconButton';
-
-import { logout } from '@/services/dcflixApi/logout';
+import { LogoutAlertDialog } from '../LogoutAlertDialog';
 
 interface IProps {
   layout?: 'simple' | 'categories' | 'search';
@@ -21,27 +17,11 @@ interface IProps {
 }
 
 export function Header({ layout = 'simple', query, pageTitle }: IProps) {
-  const { setUser } = useContext(AuthContext);
-
   const [isHeaderTransparent, setIsHeaderTransparent] = useState<boolean>(true);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
-
-  const logoutMutation = useMutation({
-    mutationFn: logout,
-    onSuccess: () => {
-      setUser({
-        id: '',
-        email: '',
-        name: '',
-      });
-      navigate('/');
-    },
-    onError: () => {
-      toast.error('Não foi possível se desconectar. Tente novamente!');
-    },
-  });
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -98,11 +78,16 @@ export function Header({ layout = 'simple', query, pageTitle }: IProps) {
                   <MagnifyingGlass size={24} />
                 </IconButton>
               )}
-              <IconButton
-                title="Logout"
-                onClick={logoutMutation.mutate}>
-                <SignOut size={24} />
-              </IconButton>
+              <AlertDialog.Root open={isDialogOpen}>
+                <AlertDialog.Trigger>
+                  <IconButton
+                    title="Logout"
+                    onClick={() => setIsDialogOpen(true)}>
+                    <SignOut size={24} />
+                  </IconButton>
+                </AlertDialog.Trigger>
+                <LogoutAlertDialog setIsDialogOpen={setIsDialogOpen} />
+              </AlertDialog.Root>
             </div>
           </div>
           {isInputShow && (

@@ -50,7 +50,7 @@ export function Menu({ menuOpen: { isMenuOpen, setIsMenuOpen } }: IProps) {
 
   return (
     <div
-      className="fixed z-50 inset-0 bg-blue-800/40 hidden transition-opacity"
+      className="fixed z-50 inset-0 bg-blue-800/60 hidden transition-opacity"
       ref={menuOverlay}
       onClick={handleOverlayClick}
       role="presentation">
