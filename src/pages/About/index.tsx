@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { ArrowLeft } from 'phosphor-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 
 import {
   Header,
@@ -21,6 +21,7 @@ import { getAMovie } from '@/services/tmdbApi/getAMovie';
 import { getASeason } from '@/services/tmdbApi/getASeason';
 import { addMediaToList } from '@/services/dcflixApi/addMediaToList';
 import { removeMediaFromList } from '@/services/dcflixApi/removeMediaFromList';
+import { verifyIfMediaIsInTheUserList } from '@/services/dcflixApi/verifyIfMediaIsInTheUserList';
 
 import { ITvMedia } from '@/types/ITvMedia';
 import { IMovieMedia } from '@/types/IMovieMedia';
@@ -41,12 +42,15 @@ function getMedia(
 
 export function About() {
   const [seasonSelected, setSeasonSelected] = useState(1);
-  const [isMediaInTheList, setIsMediaInTheList] = useState<boolean>(false);
+  const [isMediaInTheUserList, setIsMediaInTheUserList] =
+    useState<boolean>(false);
 
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [mediaId, mediaType] = decryptMediaParam(id as string);
+
+  const queryClient = useQueryClient();
 
   const mediaRequest = useQuery<ITvMedia | IMovieMedia>({
     queryKey: [`media-${mediaType}`, mediaId],
@@ -64,6 +68,14 @@ export function About() {
         'Não foi carregar as informações requisitadas. Tente novamente!'
       ),
     enabled: mediaType === 'tv',
+  });
+  const isMediaInTheUserListMutation = useQuery({
+    queryKey: ['medias-in-user-list', mediaId],
+    queryFn: () => verifyIfMediaIsInTheUserList(mediaId),
+    onSuccess: ({ data }) => {
+      setIsMediaInTheUserList(data.mediaInTheUserList);
+    },
+    onError: () => navigate('/browse'),
   });
 
   const addMediaToListMutation = useMutation({
@@ -83,7 +95,8 @@ export function About() {
     },
     onSuccess: () => {
       toast.success('A mídia foi adicionada à sua lista com sucesso.');
-      setIsMediaInTheList(true);
+      queryClient.invalidateQueries(['medias-in-user-list', mediaId]);
+      setIsMediaInTheUserList(true);
     },
   });
 
@@ -96,7 +109,8 @@ export function About() {
     },
     onSuccess: () => {
       toast.success('A mídia foi removida da sua lista com sucesso.');
-      setIsMediaInTheList(false);
+      queryClient.invalidateQueries(['medias-in-user-list', mediaId]);
+      setIsMediaInTheUserList(false);
     },
   });
 
@@ -125,14 +139,14 @@ export function About() {
   }, []);
 
   const handleManipulateMediaList = useCallback(async () => {
-    if (isMediaInTheList) {
+    if (isMediaInTheUserList) {
       removeMediaFromListMutation.mutate();
       return;
     }
     addMediaToListMutation.mutate();
-  }, [isMediaInTheList]);
+  }, [isMediaInTheUserList]);
 
-  if (mediaRequest.isLoading) {
+  if (mediaRequest.isLoading || isMediaInTheUserListMutation.isLoading) {
     return <Loading />;
   }
 
@@ -175,7 +189,7 @@ export function About() {
                   <ButtonWithIcon
                     onClick={handleManipulateMediaList}
                     template={
-                      isMediaInTheList ? 'removeFromMyList' : 'addToMyList'
+                      isMediaInTheUserList ? 'removeFromMyList' : 'addToMyList'
                     }
                   />
                 </div>
