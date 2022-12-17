@@ -20,6 +20,7 @@ import { getATv } from '@/services/tmdbApi/getATv';
 import { getAMovie } from '@/services/tmdbApi/getAMovie';
 import { getASeason } from '@/services/tmdbApi/getASeason';
 import { addMediaToList } from '@/services/dcflixApi/addMediaToList';
+import { removeMediaFromList } from '@/services/dcflixApi/removeMediaFromList';
 
 import { ITvMedia } from '@/types/ITvMedia';
 import { IMovieMedia } from '@/types/IMovieMedia';
@@ -86,6 +87,19 @@ export function About() {
     },
   });
 
+  const removeMediaFromListMutation = useMutation({
+    mutationFn: () => removeMediaFromList(mediaId),
+    onError: () => {
+      toast.error(
+        'Não foi possível remover a mídia da sua lista. Tente novamente!'
+      );
+    },
+    onSuccess: () => {
+      toast.success('A mídia foi removida da sua lista com sucesso.');
+      setIsMediaInTheList(false);
+    },
+  });
+
   const seasons = useMemo(() => {
     if (
       mediaRequest?.data?.media_type === 'tv' &&
@@ -112,11 +126,11 @@ export function About() {
 
   const handleManipulateMediaList = useCallback(async () => {
     if (isMediaInTheList) {
-      setIsMediaInTheList(false);
+      removeMediaFromListMutation.mutate();
       return;
     }
     addMediaToListMutation.mutate();
-  }, []);
+  }, [isMediaInTheList]);
 
   if (mediaRequest.isLoading) {
     return <Loading />;
