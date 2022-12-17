@@ -79,12 +79,12 @@ export function Header({ layout = 'simple', query, pageTitle }: IProps) {
                 </IconButton>
               )}
               <AlertDialog.Root open={isDialogOpen}>
-                <AlertDialog.Trigger>
-                  <IconButton
-                    title="Logout"
-                    onClick={() => setIsDialogOpen(true)}>
-                    <SignOut size={24} />
-                  </IconButton>
+                <AlertDialog.Trigger
+                  className="w-fit flex justify-center items-center text-white"
+                  type="button"
+                  onClick={() => setIsDialogOpen(true)}
+                  title="Logout">
+                  <SignOut size={24} />
                 </AlertDialog.Trigger>
                 <LogoutAlertDialog setIsDialogOpen={setIsDialogOpen} />
               </AlertDialog.Root>

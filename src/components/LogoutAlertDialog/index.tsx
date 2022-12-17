@@ -41,21 +41,19 @@ export function LogoutAlertDialog({ setIsDialogOpen }: IProps) {
   return (
     <AlertDialog.Portal>
       <AlertDialog.Overlay className="max-h-screen fixed inset-0 z-50 px-4 bg-blue-800/60 flex items-center justify-center">
-        <AlertDialog.Content className="w-fit px-4 py-8 rounded-md bg-blue-700">
-          <AlertDialog.Title>
-            <h1 className="text-white text-lg">Tem certeza que deseja sair?</h1>
+        <AlertDialog.Content className="w-fit px-4 py-4 rounded-md bg-blue-700 space-y-2">
+          <AlertDialog.Title className="text-white text-xl">
+            Tem certeza que deseja sair?
           </AlertDialog.Title>
           <div className="flex gap-4">
-            <AlertDialog.Action>
-              <button
-                className="bg-white/30 text-white hover:opacity-50 transition-opacity w-full max-w-md py-4 px-8 mt-2 rounded-md"
-                type="button"
-                onClick={() => setIsDialogOpen(false)}>
-                Não desejo sair!
-              </button>
+            <AlertDialog.Action
+              className="bg-white/30 text-white hover:opacity-50 transition-opacity w-full max-w-md py-2 px-2 mt-2 rounded-md"
+              type="button"
+              onClick={() => setIsDialogOpen(false)}>
+              Não desejo sair!
             </AlertDialog.Action>
             <button
-              className="bg-yellow-500 text-white hover:opacity-50 transition-opacity w-full max-w-md py-4 px-8 mt-2 rounded-md disabled:opacity-50"
+              className="bg-yellow-500 text-white hover:opacity-50 transition-opacity w-full max-w-md py-2 px-2 mt-2 rounded-md disabled:opacity-50"
               type="submit"
               onClick={() => logoutMutation.mutate()}
               disabled={logoutMutation.isLoading}>
