@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { ArrowLeft } from 'phosphor-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 
 import {
   Header,
@@ -19,13 +19,14 @@ import { SelectSeason, EpisodeItem } from './components';
 import { getATv } from '@/services/tmdbApi/getATv';
 import { getAMovie } from '@/services/tmdbApi/getAMovie';
 import { getASeason } from '@/services/tmdbApi/getASeason';
+import { addMediaToList } from '@/services/dcflixApi/addMediaToList';
 
 import { ITvMedia } from '@/types/ITvMedia';
 import { IMovieMedia } from '@/types/IMovieMedia';
 
 import { decryptMediaParam } from '@/utils/decryptMediaParam';
 
-import { tmdbBetterImageLink } from '@/constants/tmdbImageLink';
+import { tmdbImageLink, tmdbBetterImageLink } from '@/constants/tmdbImageLink';
 
 function getMedia(
   type: 'tv' | 'movie',
@@ -39,6 +40,7 @@ function getMedia(
 
 export function About() {
   const [seasonSelected, setSeasonSelected] = useState(1);
+  const [isMediaInTheList, setIsMediaInTheList] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -61,6 +63,27 @@ export function About() {
         'Não foi carregar as informações requisitadas. Tente novamente!'
       ),
     enabled: mediaType === 'tv',
+  });
+
+  const addMediaToListMutation = useMutation({
+    mutationFn: () => {
+      if (!mediaRequest.data) throw new TypeError();
+
+      return addMediaToList(mediaId, {
+        title: mediaRequest.data.title || mediaRequest.data.original_name,
+        media_type: mediaRequest.data.media_type,
+        poster_path: `${tmdbImageLink}${mediaRequest.data.poster_path}`,
+      });
+    },
+    onError: () => {
+      toast.error(
+        'Não foi possível adicionar a mídia a sua lista. Tente novamente!'
+      );
+    },
+    onSuccess: () => {
+      toast.success('A mídia foi adicionada à sua lista com sucesso.');
+      setIsMediaInTheList(true);
+    },
   });
 
   const seasons = useMemo(() => {
@@ -87,6 +110,14 @@ export function About() {
     return navigate(`/play/${id}`);
   }, []);
 
+  const handleManipulateMediaList = useCallback(async () => {
+    if (isMediaInTheList) {
+      setIsMediaInTheList(false);
+      return;
+    }
+    addMediaToListMutation.mutate();
+  }, []);
+
   if (mediaRequest.isLoading) {
     return <Loading />;
   }
@@ -94,7 +125,6 @@ export function About() {
   if (mediaRequest.data === undefined || mediaRequest.isError) {
     return <BlankScreen />;
   }
-
   return (
     <>
       <Toast />
@@ -128,7 +158,12 @@ export function About() {
                     template="watch"
                     onClick={navigateToPlayRoute}
                   />
-                  <ButtonWithIcon template="addToMyList" />
+                  <ButtonWithIcon
+                    onClick={handleManipulateMediaList}
+                    template={
+                      isMediaInTheList ? 'removeFromMyList' : 'addToMyList'
+                    }
+                  />
                 </div>
                 {mediaType === 'tv' && seasons && (
                   <SelectSeason
