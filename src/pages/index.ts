@@ -6,3 +6,4 @@ export { Play } from './Play';
 export { Home } from './Home';
 export { SignIn } from './SignIn';
 export { SignUp } from './SignUp';
+export { MyList } from './MyList';

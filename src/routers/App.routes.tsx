@@ -14,6 +14,7 @@ import {
   Play,
   SignIn,
   SignUp,
+  MyList,
 } from '../pages';
 
 import { Loading } from '@/components';
@@ -102,6 +103,14 @@ export function AppRoutes() {
         <Route
           path="*"
           element={<Navigate to="browse" />}
+        />
+        <Route
+          path="/my-list"
+          element={
+            <PrivateRoute>
+              <MyList />
+            </PrivateRoute>
+          }
         />
       </Routes>
     </AuthContextProvider>

@@ -6,6 +6,7 @@ interface IBody {
   title: string;
   poster_path: string;
   media_type: 'movie' | 'tv';
+  overview: string;
 }
 
 export async function addMediaToList(

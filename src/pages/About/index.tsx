@@ -86,6 +86,7 @@ export function About() {
         title: mediaRequest.data.title || mediaRequest.data.original_name,
         media_type: mediaRequest.data.media_type,
         poster_path: `${tmdbImageLink}${mediaRequest.data.poster_path}`,
+        overview: mediaRequest.data.overview,
       });
     },
     onError: () => {
@@ -110,6 +111,7 @@ export function About() {
     onSuccess: () => {
       toast.success('A mídia foi removida da sua lista com sucesso.');
       queryClient.invalidateQueries(['medias-in-user-list', mediaId]);
+
       setIsMediaInTheUserList(false);
     },
   });
