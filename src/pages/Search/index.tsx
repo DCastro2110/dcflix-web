@@ -36,7 +36,7 @@ export function Search() {
           layout="search"
         />
         <main className="pt-40 flex-1 flex justify-center items-center">
-          <div className="relative container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="relative container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center gap-4">
             <WantedMediaMainArea
               query={query}
               wantedMediaData={wantedMediaRequest.data}

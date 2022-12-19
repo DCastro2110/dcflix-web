@@ -22,7 +22,7 @@ export function MediaItem({
   return (
     <Link
       to={`/about/${cryptMediaParam(media_id, media_type)}`}
-      className="h-80 m-2 basis-52 shrink-0 bg-blue-700 rounded-md hover:scale-105 transition-transform">
+      className="w-full m-2 basis-52 shrink-0 bg-blue-700 rounded-md hover:scale-105 transition-transform">
       <LazyLoadImage
         className="object-cover h-full w-full"
         height="100%"

@@ -31,7 +31,7 @@ export function MyList() {
         pageTitle="Minha Lista"
       />
       <main className="pt-40 flex-1 flex flex-col justify-center items-center">
-        <div className="container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center gap-4">
           {userListOfMediasRequest.data.data.medias.length === 0 ? (
             <div className="col-span-full min-h-full flex justify-center items-center">
               <span className="text-gray-500 text-center">
