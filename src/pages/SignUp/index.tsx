@@ -97,7 +97,7 @@ export function SignUp() {
         />
 
         <fieldset className="h-fit w-fit p-8 bg-blue-700 rounded-md">
-          <legend className="text-white text-2xl md:text-3xl text-center font-bold w-full">
+          <legend className="text-white text-xl md:text-2xl text-center font-bold w-full">
             Cadastrar
           </legend>
           <form
