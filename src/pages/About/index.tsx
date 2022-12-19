@@ -97,6 +97,7 @@ export function About() {
     onSuccess: () => {
       toast.success('A mídia foi adicionada à sua lista com sucesso.');
       queryClient.invalidateQueries(['medias-in-user-list', mediaId]);
+      queryClient.invalidateQueries(['user-medias-list']);
       setIsMediaInTheUserList(true);
     },
   });
@@ -111,6 +112,7 @@ export function About() {
     onSuccess: () => {
       toast.success('A mídia foi removida da sua lista com sucesso.');
       queryClient.invalidateQueries(['medias-in-user-list', mediaId]);
+      queryClient.invalidateQueries(['user-medias-list']);
 
       setIsMediaInTheUserList(false);
     },
