@@ -52,7 +52,7 @@ export function Filter() {
         pageTitle={getTitleBySlug(slug as TSlug)}
       />
       <main className="pt-40 flex-1 flex flex-col justify-center items-center">
-        <div className="relative container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="container max-w-[1600px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {mediasByCategoryRequest.data.pages.map((page) =>
             page.items.map((media) => (
               <MediaItem

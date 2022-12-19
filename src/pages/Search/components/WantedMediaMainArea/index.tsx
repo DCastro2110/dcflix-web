@@ -26,8 +26,8 @@ export function WantedMediaMainArea({
       !isWantedMediaLoading)
   ) {
     return (
-      <div className="absolute inset-0 flex justify-center items-center">
-        <span className="text-gray-500">
+      <div className="col-span-full flex justify-center items-center">
+        <span className="text-gray-500 text-center">
           Não foi possível encontrar a mídia informada.
         </span>
       </div>
@@ -35,8 +35,8 @@ export function WantedMediaMainArea({
   }
   if (wantedMediaData.length === 0 && query.trim() === '') {
     return (
-      <div className="absolute inset-0 min-h-full flex justify-center items-center">
-        <span className="text-gray-500">
+      <div className="col-span-full flex justify-center items-center">
+        <span className="text-gray-500 text-center">
           Busque por suas séries os filmes aqui.
         </span>
       </div>
