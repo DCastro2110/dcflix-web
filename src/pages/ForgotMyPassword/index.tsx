@@ -1,4 +1,4 @@
-import { useId, useContext } from 'react';
+import { useId, useContext, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { useFormik } from 'formik';
@@ -11,6 +11,7 @@ import { AuthContext } from '@/contexts/AuthContext';
 import { useAuth } from '@/hooks/useAuth';
 
 import { Loading, Toast } from '@/components';
+import { EmailSendedDialog } from './components';
 
 import { getLinkToRecoverPassword } from '@/services/dcflixApi/getLinkToRecoverPassword';
 
@@ -23,6 +24,8 @@ const validationSchema = yup.object({
 
 export function ForgotMyPassword() {
   const { user } = useContext(AuthContext);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const emailInputId = useId();
 
@@ -40,7 +43,7 @@ export function ForgotMyPassword() {
       toast.error('Erro interno. Tente novamente!');
     },
     onSuccess: () => {
-      toast.success('Um link de recuperação foi enviado para seu email.');
+      setIsDialogOpen(true);
     },
   });
 
@@ -67,6 +70,11 @@ export function ForgotMyPassword() {
 
   return (
     <div className="flex min-h-screen">
+      <EmailSendedDialog
+        setIsDialogOpen={setIsDialogOpen}
+        isDialogOpen={isDialogOpen}
+        email={formik.values.email}
+      />
       <Toast />
       <div className="flex-1 flex flex-col items-center justify-center gap-8 p-4">
         <img
