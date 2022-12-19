@@ -15,6 +15,7 @@ import {
   SignIn,
   SignUp,
   MyList,
+  ForgotMyPassword,
 } from '../pages';
 
 import { Loading } from '@/components';
@@ -59,6 +60,10 @@ export function AppRoutes() {
         <Route
           path="/signup"
           element={<SignUp />}
+        />
+        <Route
+          path="/forgot-my-password"
+          element={<ForgotMyPassword />}
         />
         <Route
           path="/browse"
