@@ -7,3 +7,4 @@ export { Loading } from './Loading';
 export { LoadingSmall } from './LoadingSmall';
 export { Toast } from './Toast';
 export { BlankScreen } from './BlankScreen';
+export { RecoverPasswordDialog } from './RecoverPasswordDialog';
