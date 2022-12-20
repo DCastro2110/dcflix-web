@@ -39,11 +39,12 @@ export function SelectSeason({
       value={seasonValue}
       styles={{
         control: () => ({
-          backgroundColor: 'rgba(255, 255, 255, .3)',
+          backgroundColor: '#0A1641',
           borderRadius: '0.375rem',
           color: '#fff',
           cursor: 'pointer',
           display: 'flex',
+          marginBottom: '1rem',
           width: '100%',
         }),
         indicatorSeparator: () => ({
@@ -53,19 +54,22 @@ export function SelectSeason({
           display: 'none',
         }),
         menu: () => ({
-          backgroundColor: 'rgba(255, 255, 255, 0.3)',
+          backgroundColor: '#0A1641',
           borderRadius: '0.375rem',
           marginTop: '.3rem',
           padding: '.5rem',
+          position: 'absolute',
+          width: '100%',
+          zIndex: '100',
         }),
         placeholder: () => ({
           color: 'rgba(255, 255, 255, 0.5)',
         }),
         option: (baseStyles, state) => ({
-          'color': state.isSelected ? '#080831' : '#fff',
+          'color': state.isSelected ? '#CD8605' : '#fff',
           'cursor': 'pointer',
           ':hover': {
-            color: '#080831',
+            color: '#CD8605',
           },
         }),
         singleValue: () => ({
