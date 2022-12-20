@@ -8,3 +8,4 @@ export { SignIn } from './SignIn';
 export { SignUp } from './SignUp';
 export { MyList } from './MyList';
 export { ForgotMyPassword } from './ForgotMyPassword';
+export { ChangeMyPassword } from './ChangeMyPassword';

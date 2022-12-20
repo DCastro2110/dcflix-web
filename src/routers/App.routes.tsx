@@ -16,6 +16,7 @@ import {
   SignUp,
   MyList,
   ForgotMyPassword,
+  ChangeMyPassword,
 } from '../pages';
 
 import { Loading } from '@/components';
@@ -64,6 +65,10 @@ export function AppRoutes() {
         <Route
           path="/forgot-my-password"
           element={<ForgotMyPassword />}
+        />
+        <Route
+          path="/change-my-password/:id"
+          element={<ChangeMyPassword />}
         />
         <Route
           path="/browse"

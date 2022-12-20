@@ -66,9 +66,13 @@ export function ForgotMyPassword() {
     return <Loading />;
   }
 
-  const dialogText = `Procure o e-mail de redefinição de senha na caixa de entrada de
-  <strong> ${formik.values.email}</strong>. Se você não receber o e-mail em
-  breve, tente novamente.`;
+  const dialogText = (
+    <p>
+      Procure o e-mail de redefinição de senha na caixa de entrada de
+      <strong> {formik.values.email}</strong>. Se você não receber o e-mail em
+      breve, tente novamente.
+    </p>
+  );
 
   return (
     <div className="flex min-h-screen">
