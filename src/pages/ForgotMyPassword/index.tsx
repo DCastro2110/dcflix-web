@@ -10,8 +10,7 @@ import { AuthContext } from '@/contexts/AuthContext';
 
 import { useAuth } from '@/hooks/useAuth';
 
-import { Loading, Toast } from '@/components';
-import { EmailSendedDialog } from './components';
+import { Loading, Toast, RecoverPasswordDialog } from '@/components';
 
 import { getLinkToRecoverPassword } from '@/services/dcflixApi/getLinkToRecoverPassword';
 
@@ -50,7 +49,6 @@ export function ForgotMyPassword() {
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: '',
     },
     validationSchema,
     async onSubmit(values) {
@@ -68,12 +66,17 @@ export function ForgotMyPassword() {
     return <Loading />;
   }
 
+  const dialogText = `Procure o e-mail de redefinição de senha na caixa de entrada de
+  <strong> ${formik.values.email}</strong>. Se você não receber o e-mail em
+  breve, tente novamente.`;
+
   return (
     <div className="flex min-h-screen">
-      <EmailSendedDialog
+      <RecoverPasswordDialog
         setIsDialogOpen={setIsDialogOpen}
         isDialogOpen={isDialogOpen}
-        email={formik.values.email}
+        title="Email enviado"
+        text={dialogText}
       />
       <Toast />
       <div className="flex-1 flex flex-col items-center justify-center gap-8 p-4">

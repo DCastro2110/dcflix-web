@@ -1,1 +1,0 @@
-export { EmailSendedDialog } from './EmailSendedDialog';
