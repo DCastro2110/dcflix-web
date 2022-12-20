@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import {
   useParams,
   useSearchParams,
@@ -92,6 +92,28 @@ export function Play() {
     navigate('/browse');
   }, []);
 
+  const getMediaName = useMemo(() => {
+    if (!mediaRequest.data) return undefined;
+
+    if (Object.hasOwn(mediaRequest.data, 'title')) {
+      const mediaData = JSON.parse(
+        JSON.stringify(mediaRequest.data)
+      ) as IMovieMedia;
+
+      return mediaData.title;
+    }
+
+    if (!episodeRequest.data) {
+      const mediaData = JSON.parse(
+        JSON.stringify(mediaRequest.data)
+      ) as ITvMedia;
+
+      return mediaData.original_name;
+    }
+
+    return `${episodeRequest.data?.episode_number}. ${episodeRequest.data?.name}`;
+  }, [mediaRequest.data, episodeRequest.data]);
+
   if (
     mediaRequest.isLoading ||
     mediaRequest.data === undefined ||
@@ -115,11 +137,7 @@ export function Play() {
               />
             </IconButton>
           </div>
-          <h1 className="text-center">
-            {mediaType === 'tv'
-              ? `${episodeRequest.data?.episode_number}. ${episodeRequest.data?.name}`
-              : mediaRequest.data?.title}
-          </h1>
+          <h1 className="text-center">{getMediaName}</h1>
           <div className="h-full w-24" />
         </div>
         <video
