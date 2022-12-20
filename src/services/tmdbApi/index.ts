@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { mediaRemoverThatHasNoImages } from '@/utils/mediaRemoverThatHasNoImages';
+import { removeMediaThatHasNoImage } from '@/utils/removeMediaThatHasNoImage';
 
 export const tmdbApi = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
@@ -14,7 +14,7 @@ export const tmdbApi = axios.create({
 
 export const tmdbRequest = async (url: string) => {
   const res = await tmdbApi.get(`${url}`);
-  const data = mediaRemoverThatHasNoImages(res.data);
+  const data = removeMediaThatHasNoImage(res.data);
 
   return data;
 };
