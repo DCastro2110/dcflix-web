@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { ArrowLeft } from 'phosphor-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 
@@ -46,7 +46,10 @@ export function About() {
     useState<boolean>(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams();
+
+  const hasPreviousState = location.key !== 'default';
 
   const [mediaId, mediaType] = decryptMediaParam(id as string);
 
@@ -150,6 +153,14 @@ export function About() {
     addMediaToListMutation.mutate();
   }, [isMediaInTheUserList]);
 
+  const handleGoBack = useCallback(() => {
+    if (hasPreviousState) {
+      navigate(-1);
+      return;
+    }
+    navigate('/browse');
+  }, []);
+
   if (mediaRequest.isLoading || isMediaInTheUserListMutation.isLoading) {
     return <Loading />;
   }
@@ -171,7 +182,7 @@ export function About() {
             <div className="flex flex-col gap-4">
               <IconButton
                 title="Voltar à página inicial"
-                onClick={() => navigate('/browse')}>
+                onClick={handleGoBack}>
                 <ArrowLeft
                   color="white"
                   size={32}

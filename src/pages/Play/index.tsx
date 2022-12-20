@@ -1,6 +1,11 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useEffect } from 'react';
-import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
+import {
+  useParams,
+  useSearchParams,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { ArrowLeft } from 'phosphor-react';
@@ -32,6 +37,10 @@ export function Play() {
   const [searchParams] = useSearchParams();
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const hasPreviousState = location.key !== 'default';
+
   const [mediaId, mediaType] = decryptMediaParam(id as string);
 
   useEffect(() => {
@@ -75,6 +84,14 @@ export function Play() {
     enabled: !!searchParams.get('season') && !!searchParams.get('episode'),
   });
 
+  const handleGoBack = useCallback(() => {
+    if (hasPreviousState) {
+      navigate(-1);
+      return;
+    }
+    navigate('/browse');
+  }, []);
+
   if (
     mediaRequest.isLoading ||
     mediaRequest.data === undefined ||
@@ -91,7 +108,7 @@ export function Play() {
           <div className="w-24 h-full flex items-center">
             <IconButton
               title="Voltar"
-              onClick={() => navigate(`/about/${id}`)}>
+              onClick={handleGoBack}>
               <ArrowLeft
                 className="text-white"
                 size={24}

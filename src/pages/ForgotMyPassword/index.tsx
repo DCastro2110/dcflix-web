@@ -1,5 +1,5 @@
 import { useId, useContext, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -28,11 +28,17 @@ export function ForgotMyPassword() {
 
   const emailInputId = useId();
 
+  const navigate = useNavigate();
+
   const forgotPasswordMutation = useMutation({
     mutationFn: (body: yup.InferType<typeof validationSchema>) =>
       getLinkToRecoverPassword(body),
     onError: (err) => {
-      if (!(err instanceof AxiosError)) return;
+      if (!(err instanceof AxiosError)) {
+        toast.error('Erro de conexão. Tente novamente!');
+        navigate('/signin');
+        return;
+      }
 
       if (err.response!.data.message === 'User not found.') {
         toast.error('Usuário não encontrado.');
