@@ -63,6 +63,23 @@ export function About() {
         'Não foi carregar as informações requisitadas. Tente novamente!'
       ),
   });
+
+  const getMediaName = useMemo(() => {
+    if (!mediaRequest.data) return undefined;
+
+    if (Object.hasOwn(mediaRequest.data, 'title')) {
+      const mediaData = JSON.parse(
+        JSON.stringify(mediaRequest.data)
+      ) as IMovieMedia;
+
+      return mediaData.title;
+    }
+
+    const mediaData = JSON.parse(JSON.stringify(mediaRequest.data)) as ITvMedia;
+
+    return mediaData.original_name;
+  }, [mediaRequest.data]);
+
   const seasonRequest = useQuery({
     queryKey: [`season`, `${mediaId}-${seasonSelected}`],
     queryFn: () => getASeason(mediaId, seasonSelected),
@@ -83,10 +100,10 @@ export function About() {
 
   const addMediaToListMutation = useMutation({
     mutationFn: () => {
-      if (!mediaRequest.data) throw new TypeError();
+      if (!mediaRequest.data || !getMediaName) throw new TypeError();
 
       return addMediaToList(mediaId, {
-        title: mediaRequest.data.title || mediaRequest.data.original_name,
+        title: getMediaName as string,
         media_type: mediaRequest.data.media_type,
         poster_path: `${tmdbImageLink}${mediaRequest.data.poster_path}`,
         overview: mediaRequest.data.overview,
@@ -190,8 +207,7 @@ export function About() {
               </IconButton>
 
               <h1 className="font-bold text-4xl md:text-6xl max-w-md">
-                {mediaRequest.data?.original_name ||
-                  mediaRequest.data?.original_title}
+                {getMediaName}
               </h1>
               <p className="max-w-md">{mediaRequest.data.overview}</p>
 
