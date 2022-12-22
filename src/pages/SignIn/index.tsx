@@ -42,7 +42,7 @@ export function SignIn() {
         return;
       }
       if (err.response!.data.message === 'Password is wrong.') {
-        toast.error('Senha incorreta. Tente novamente!.');
+        toast.error('Senha incorreta. Tente novamente!');
         return;
       }
 
