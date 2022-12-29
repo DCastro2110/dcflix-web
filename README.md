@@ -84,7 +84,7 @@ yarn
 yarn dev
 ```
 
-### ⌛ Realizando commits de forma padronizada
+### ☁️ Realizando commits de forma padronizada
 
 ```bash
 yarn commit
