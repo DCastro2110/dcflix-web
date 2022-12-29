@@ -34,7 +34,6 @@ Plataforma de streaming de filmes e séries. Nela você pode pesquisar o filme q
 
 ## ⌛ Funcionalidades Pendentes
 
-- [ ] Refresh Token
 - [ ] Gerenciamento de conta do usuário
 
 ## Tecnologias
