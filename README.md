@@ -1,4 +1,4 @@
-# DCFlix
+# DCFlix WEB
 
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/DCastro2110/dcflix-web/blob/master/LICENSE)
 
