@@ -1,4 +1,4 @@
-# DCFlix
+# DCFlix WEB
 
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/DCastro2110/dcflix-web/blob/master/LICENSE)
 
@@ -34,7 +34,6 @@ Plataforma de streaming de filmes e séries. Nela você pode pesquisar o filme q
 
 ## ⌛ Funcionalidades Pendentes
 
-- [ ] Refresh Token
 - [ ] Gerenciamento de conta do usuário
 
 ## Tecnologias
