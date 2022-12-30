@@ -64,6 +64,10 @@ Plataforma de streaming de filmes e séries. Nela você pode pesquisar o filme q
 
 ## ⚙️ Configurações
 
+### Definições iniciais
+
+Para que o projeto execute conforme o esperado, é necessário criar um arquivo ".env" com as variáveis presentes no arquivo ".env.example" junto a seus respectivos valores.
+
 ### 🗔 Clonando o projeto:
 
 ```bash
