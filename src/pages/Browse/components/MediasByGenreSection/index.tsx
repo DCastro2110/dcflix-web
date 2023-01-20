@@ -26,6 +26,7 @@ export function MediasByGenreSection({ data, slug, title }: IProps) {
     left: false,
     right: true,
   });
+  const isSeeMoreVisible = useRef(slug !== 'trending');
 
   const handleContainerScroll = () => {
     if (!mediasContainer?.current) return;
@@ -83,12 +84,14 @@ export function MediasByGenreSection({ data, slug, title }: IProps) {
     <div className="max-w-full p-2 space-y-2">
       <h2 className="text-xl mx-2 text-white flex items-center">
         {title}
-        <Link
-          to={`/filter/${slug}`}
-          className="relative top-[1.6px] h-full text-sm ml-2 hover:text-yellow-500 transition-colors">
-          {' '}
-          {'>'} Ver mais
-        </Link>
+        {isSeeMoreVisible.current && (
+          <Link
+            to={`/filter/${slug}`}
+            className="relative top-[1.6px] h-full text-sm ml-2 hover:text-yellow-500 transition-colors">
+            {' '}
+            {'>'} Ver mais
+          </Link>
+        )}
       </h2>
       <div className="relative h-fit">
         <div
