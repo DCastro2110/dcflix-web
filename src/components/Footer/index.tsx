@@ -34,7 +34,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p>© 2022 DCFlix. Todos os direitos reservados</p>
+          <p>© {(new Date().getFullYear())} DCFlix. Todos os direitos reservados</p>
         </div>
       </div>
     </footer>
